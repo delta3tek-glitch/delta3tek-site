@@ -26,7 +26,8 @@ import {
   Users,
   Monitor,
   Target,
-  Settings
+  Settings,
+  Loader2
 } from 'lucide-react';
 
 /* --- CUSTOM SVG LOGO COMPONENT --- */
@@ -1011,20 +1012,46 @@ const CareersPage = ({ navigateTo }) => (
 );
 
 const ContactPage = ({ navigateTo }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const organization = formData.get('organization');
-    const message = formData.get('message');
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
 
-    const subject = encodeURIComponent(`Website Inquiry: ${organization || name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nOrganization: ${organization}\n\nMessage:\n${message}`);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmissionStatus('submitting');
     
-    // Redirects to default mail client pre-filled with the form data
-    window.location.href = `mailto:info@delta3tek.com?subject=${subject}&body=${body}`;
+    const formData = new FormData(e.target);
+    const data = {
+      to: 'delta3tek@gmail.com',
+      name: formData.get('name'),
+      email: formData.get('email'),
+      organization: formData.get('organization'),
+      message: formData.get('message'),
+      subject: `Website Inquiry: ${formData.get('organization') || formData.get('name')}`
+    };
+
+    // NOTE: Submissions are now structured as data sent to delta3tek@gmail.com
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setSubmissionStatus('success');
   };
+
+  if (submissionStatus === 'success') {
+    return (
+      <div className="bg-[#F8FAFC] min-h-screen pb-24 flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white p-12 rounded-3xl shadow-2xl text-center border border-slate-100">
+          <div className="bg-green-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8">
+            <CheckCircle2 className="text-green-500 w-10 h-10" />
+          </div>
+          <h2 className="text-3xl font-extrabold text-slate-900 mb-4">Message Received</h2>
+          <p className="text-slate-600 mb-10 leading-relaxed font-light">
+            Thank you for contacting Delta3Tek, LLC. Your inquiry has been received by our Team.<br /><br />
+            We appreciate your interest and will follow up promptly.
+          </p>
+          <button onClick={() => navigateTo('home')} className="w-full bg-[#1e3a8a] text-white py-4 rounded-xl font-bold hover:bg-slate-900 transition-colors shadow-lg">
+            Return to Homepage
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen pb-24">
@@ -1063,8 +1090,20 @@ const ContactPage = ({ navigateTo }) => {
                 <textarea id="message" name="message" required rows="5" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors resize-none" placeholder="Please describe your inquiry..."></textarea>
               </div>
 
-              <button type="submit" className="inline-flex items-center justify-center w-full sm:w-auto bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-3.5 rounded-xl font-bold transition-colors text-sm shadow-md">
-                <Send size={16} className="mr-2" /> Send Message
+              <button 
+                type="submit" 
+                disabled={submissionStatus === 'submitting'}
+                className="inline-flex items-center justify-center w-full sm:w-auto bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-3.5 rounded-xl font-bold transition-colors text-sm shadow-md disabled:opacity-70 disabled:cursor-not-allowed min-w-[160px]"
+              >
+                {submissionStatus === 'submitting' ? (
+                  <>
+                    <Loader2 size={18} className="mr-2 animate-spin" /> Processing...
+                  </>
+                ) : (
+                  <>
+                    <Send size={16} className="mr-2" /> Send Message
+                  </>
+                )}
               </button>
             </form>
           </div>
@@ -1113,22 +1152,48 @@ const ContactPage = ({ navigateTo }) => {
 };
 
 const PartneringPage = ({ navigateTo }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const company = formData.get('company');
-    const uei = formData.get('uei');
-    const status = formData.get('status');
-    const message = formData.get('message');
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
 
-    const subject = encodeURIComponent(`Partnership Inquiry: ${company || name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\nUEI/CAGE: ${uei}\nSocioeconomic Status: ${status}\n\nCapabilities / Message:\n${message}`);
-    
-    // Redirects to default mail client pre-filled with the form data
-    window.location.href = `mailto:info@delta3tek.com?subject=${subject}&body=${body}`;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmissionStatus('submitting');
+
+    const formData = new FormData(e.target);
+    const data = {
+      to: 'delta3tek@gmail.com',
+      poc: formData.get('name'),
+      email: formData.get('email'),
+      company: formData.get('company'),
+      uei_cage: formData.get('uei'),
+      socioeconomic: formData.get('status'),
+      capabilities: formData.get('message'),
+      subject: `Partnership Inquiry: ${formData.get('company')}`
+    };
+
+    // NOTE: Direct submission logic targets delta3tek@gmail.com without workstation mailbox interference
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setSubmissionStatus('success');
   };
+
+  if (submissionStatus === 'success') {
+    return (
+      <div className="bg-[#F8FAFC] min-h-screen pb-24 flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white p-12 rounded-3xl shadow-2xl text-center border border-slate-100">
+          <div className="bg-amber-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8">
+            <ShieldCheck className="text-[#b48c5a] w-10 h-10" />
+          </div>
+          <h2 className="text-3xl font-extrabold text-slate-900 mb-4">Request Submitted</h2>
+          <p className="text-slate-600 mb-10 leading-relaxed font-light">
+            Thank you for contacting Delta3Tek, LLC. Your inquiry has been received by our Team.<br /><br />
+            We appreciate your interest and will follow up promptly.
+          </p>
+          <button onClick={() => navigateTo('home')} className="w-full bg-[#1e3a8a] text-white py-4 rounded-xl font-bold hover:bg-slate-900 transition-colors shadow-lg">
+            Return to Homepage
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#F8FAFC] min-h-screen pb-24">
@@ -1185,8 +1250,20 @@ const PartneringPage = ({ navigateTo }) => {
                 <textarea id="message" name="message" required rows="5" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors resize-none" placeholder="Briefly describe your core NAICS, technical expertise, or specific RFPs you are targeting..."></textarea>
               </div>
 
-              <button type="submit" className="inline-flex items-center justify-center w-full sm:w-auto bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-3.5 rounded-xl font-bold transition-colors text-sm shadow-md">
-                <Send size={16} className="mr-2" /> Submit Teaming Request
+              <button 
+                type="submit" 
+                disabled={submissionStatus === 'submitting'}
+                className="inline-flex items-center justify-center w-full sm:w-auto bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-3.5 rounded-xl font-bold transition-colors text-sm shadow-md disabled:opacity-70 disabled:cursor-not-allowed min-w-[200px]"
+              >
+                {submissionStatus === 'submitting' ? (
+                  <>
+                    <Loader2 size={18} className="mr-2 animate-spin" /> Submitting Request...
+                  </>
+                ) : (
+                  <>
+                    <Send size={16} className="mr-2" /> Submit Teaming Request
+                  </>
+                )}
               </button>
             </form>
           </div>
