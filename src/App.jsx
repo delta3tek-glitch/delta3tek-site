@@ -17,7 +17,8 @@ import {
   Lock,
   Award,
   BarChart3,
-  Globe
+  Globe,
+  Printer
 } from 'lucide-react';
 
 /* --- CUSTOM SVG LOGO COMPONENT --- */
@@ -79,7 +80,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-50 font-sans text-gray-800 selection:bg-[#b48c5a] selection:text-white">
       
       {/* Top Bar - Sleeker & More Refined */}
-      <div className="bg-slate-950 text-gray-400 py-2 px-4 text-[11px] font-mono hidden md:block border-b border-slate-900">
+      <div className="bg-slate-950 text-gray-400 py-2 px-4 text-[11px] font-mono hidden md:block border-b border-slate-900 print:hidden">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex space-x-6">
             <span className="flex items-center tracking-widest uppercase"><ShieldCheck size={14} className="mr-2 text-[#b48c5a]"/> Cleared Facility & Personnel</span>
@@ -92,7 +93,7 @@ export default function App() {
       </div>
 
       {/* Main Navigation - Added backdrop blur and smooth scroll state */}
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-0' : 'bg-white py-2'}`}>
+      <header className={`sticky top-0 z-50 transition-all duration-300 print:hidden ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-0' : 'bg-white py-2'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
@@ -163,10 +164,11 @@ export default function App() {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                  <a href="#capability-statement" className="bg-[#1e3a8a] text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-all duration-300 text-center shadow-[0_0_20px_rgba(30,58,138,0.5)] hover:shadow-[0_0_30px_rgba(30,58,138,0.8)] hover:-translate-y-1 flex items-center justify-center gap-2 group">
-                    <Download size={20} className="group-hover:scale-110 transition-transform"/>
+                  {/* UPDATE: Route to Capability Statement Page */}
+                  <button onClick={() => navigateTo('capability-statement')} className="bg-[#1e3a8a] text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-all duration-300 text-center shadow-[0_0_20px_rgba(30,58,138,0.5)] hover:shadow-[0_0_30px_rgba(30,58,138,0.8)] hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                    <FileText size={20} className="group-hover:scale-110 transition-transform"/>
                     Capability Statement
-                  </a>
+                  </button>
                   <a href="#services" onClick={(e) => handleNavClick(e, 'home', 'services')} className="bg-transparent border border-slate-500 text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-white hover:text-slate-900 hover:border-white transition-all duration-300 text-center flex items-center justify-center gap-2 group">
                     Explore Services <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform"/>
                   </a>
@@ -442,9 +444,13 @@ export default function App() {
       {currentPage === 'cybersecurity' && <CybersecurityPage navigateTo={navigateTo} />}
       {currentPage === 'devsecops' && <DevSecOpsPage navigateTo={navigateTo} />}
       {currentPage === 'data-analytics' && <DataAnalyticsPage navigateTo={navigateTo} />}
+      {currentPage === 'capability-statement' && <CapabilityStatementPage navigateTo={navigateTo} />}
+      {currentPage === 'privacy-policy' && <PrivacyPolicyPage navigateTo={navigateTo} />}
+      {currentPage === 'terms-of-use' && <TermsOfUsePage navigateTo={navigateTo} />}
+      {currentPage === 'accessibility' && <AccessibilityPage navigateTo={navigateTo} />}
 
       {/* Premium Footer */}
-      <footer id="contact" className="bg-slate-950 text-white pt-20 pb-10 border-t-[8px] border-[#b48c5a]">
+      <footer id="contact" className="bg-slate-950 text-white pt-20 pb-10 border-t-[8px] border-[#b48c5a] print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
             
@@ -480,7 +486,7 @@ export default function App() {
               <ul className="space-y-4 text-sm text-slate-400">
                 <li className="flex items-start bg-slate-900 border border-slate-800 p-5 rounded-xl">
                   <Building2 className="w-5 h-5 text-[#b48c5a] mr-4 flex-shrink-0 mt-0.5" />
-                  <span className="leading-relaxed text-base font-light">Arcola, Virginia<br/>United States</span>
+                  <span className="leading-relaxed text-base font-light">TBD</span>
                 </li>
                 <li className="flex items-center bg-slate-900 border border-slate-800 p-5 rounded-xl group hover:border-[#b48c5a]/50 transition-colors cursor-pointer">
                   <Mail className="w-5 h-5 text-[#b48c5a] mr-4 flex-shrink-0" />
@@ -493,9 +499,9 @@ export default function App() {
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 font-light">
             <p>&copy; {new Date().getFullYear()} Delta3Tek LLC. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0 font-medium">
-              <a href="#" className="hover:text-[#b48c5a] transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-[#b48c5a] transition-colors">Terms of Use</a>
-              <a href="#" className="hover:text-[#b48c5a] transition-colors">Section 508 Accessibility</a>
+              <a href="#privacy" onClick={(e) => handleNavClick(e, 'privacy-policy')} className="hover:text-[#b48c5a] transition-colors">Privacy Policy</a>
+              <a href="#terms" onClick={(e) => handleNavClick(e, 'terms-of-use')} className="hover:text-[#b48c5a] transition-colors">Terms of Use</a>
+              <a href="#accessibility" onClick={(e) => handleNavClick(e, 'accessibility')} className="hover:text-[#b48c5a] transition-colors">Section 508 Accessibility</a>
             </div>
           </div>
         </div>
@@ -510,21 +516,18 @@ export default function App() {
    ========================================= */
 
 const PageHeader = ({ title, description, icon: Icon, navigateTo }) => (
-  <section className="bg-slate-950 text-white pt-16 pb-28 relative overflow-hidden">
+  <section className="bg-slate-950 text-white pt-16 pb-28 relative overflow-hidden print:hidden">
     <div className="absolute inset-0 bg-[linear-gradient(to_right,#334155_1px,transparent_1px),linear-gradient(to_bottom,#334155_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20"></div>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <button onClick={() => navigateTo('home')} className="flex items-center text-[#b48c5a] hover:text-white mb-10 transition-colors font-extrabold text-xs tracking-widest uppercase group">
         <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> Return to Homepage
       </button>
-      <div className="flex items-center gap-6 mb-8">
-        <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-inner">
-          <Icon size={40} className="text-[#b48c5a]" />
-        </div>
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white">{title}</h1>
+      <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">{title}</h1>
+        <p className="text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
+          {description}
+        </p>
       </div>
-      <p className="text-xl md:text-2xl text-slate-300 max-w-4xl leading-relaxed font-light">
-        {description}
-      </p>
     </div>
   </section>
 );
@@ -540,150 +543,364 @@ const FeatureList = ({ features }) => (
   </ul>
 );
 
-const EnterpriseITPage = ({ navigateTo }) => (
-  <div className="animate-in fade-in duration-500 bg-gray-50 min-h-[60vh]">
-    <PageHeader 
-      title="Enterprise IT & Cloud" 
-      description="Modernize legacy systems and migrate critical workloads to AWS GovCloud and Azure. We architect scalable solutions designed to reduce infrastructure maintenance costs."
-      icon={Server}
-      navigateTo={navigateTo}
-    />
-    <section className="py-24 -mt-16 relative z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12">
-          <div className="lg:w-1/2 bg-white p-12 rounded-3xl shadow-xl border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 tracking-tight">Next-Generation Infrastructure</h2>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              At Delta3Tek, we understand the critical nature of government IT modernization. Relying on outdated, monolithic legacy systems presents significant security vulnerabilities and operational bottlenecks. We engineer seamless transitions to modern, scalable cloud environments.
-            </p>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              Our cloud architects possess extensive experience in designing multi-cloud and hybrid environments (AWS, Azure, Google Cloud Platform) that strictly adhere to FedRAMP compliance requirements. By implementing Infrastructure as Code (IaC), we ensure your deployments are repeatable, secure, and easily auditable.
-            </p>
-          </div>
-          <div className="lg:w-1/2 bg-slate-100 p-12 rounded-3xl border border-slate-200 mt-10 lg:mt-0 shadow-inner">
-            <h3 className="text-2xl font-extrabold text-slate-900 mb-10 border-b border-slate-200 pb-5 uppercase tracking-widest text-sm">Key Capabilities</h3>
-            <FeatureList features={[
-              "Secure Cloud Migrations (AWS GovCloud, Azure)",
-              "Legacy System Modernization & Refactoring",
-              "Infrastructure as Code (IaC) with Terraform",
-              "FedRAMP & DISA IL4/IL5 Compliant Architectures",
-              "High-Availability & Disaster Recovery Planning",
-              "24/7 Operations & Infrastructure Management"
-            ]} />
+const SubpageLayout = ({ title, description, icon, content, features, navigateTo }) => (
+  <div className="bg-[#F8FAFC] min-h-screen pb-24">
+    <PageHeader title={title} description={description} icon={icon} navigateTo={navigateTo} />
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+      <div className="grid lg:grid-cols-12 gap-8 items-start">
+        <div className="lg:col-span-8 bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+          <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-6 tracking-tight">Capability Overview</h2>
+          {content}
+        </div>
+        <div className="lg:col-span-4 bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 sticky top-32">
+          <h3 className="text-sm font-bold text-[#0B1F3B] mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">Core Competencies</h3>
+          <FeatureList features={features} />
+          <div className="mt-8 pt-8 border-t border-slate-100">
+            <button onClick={() => { document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); }} className="w-full bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm text-center">
+              Discuss Your Project
+            </button>
           </div>
         </div>
       </div>
     </section>
   </div>
+);
+
+/* =========================================
+   NEW: DIGITAL CAPABILITY STATEMENT PAGE
+   ========================================= */
+   const CapabilityStatementPage = ({ navigateTo }) => (
+    <div className="animate-in fade-in duration-500 bg-[#F8FAFC] min-h-screen pb-24 print:bg-white print:pb-0">
+      <PageHeader 
+        title="Corporate Capability Statement" 
+        description="A comprehensive overview of Delta3Tek's core competencies, past performance, and federal procurement readiness."
+        icon={FileText}
+        navigateTo={navigateTo}
+      />
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 print:m-0 print:p-0 print:w-full print:max-w-none print:shadow-none">
+        <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100 overflow-hidden print:shadow-none print:border-none print:rounded-none">
+          
+          {/* Header/Print Utility Bar (Hidden when printing) */}
+          <div className="bg-slate-50 px-8 py-5 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 print:hidden">
+            <span className="text-sm font-bold text-slate-500 uppercase tracking-widest">Digital Version</span>
+            <button onClick={() => window.print()} className="inline-flex items-center bg-white border border-slate-200 px-4 py-2 rounded-md text-[#1e3a8a] hover:text-[#b48c5a] hover:border-[#b48c5a]/50 font-bold text-sm transition-colors shadow-sm">
+              <Printer size={16} className="mr-2" /> Save to PDF / Print
+            </button>
+          </div>
+  
+          {/* Digital Document Body */}
+          <div className="p-8 md:p-16 space-y-12">
+            
+            {/* Logo & Intro */}
+            <div className="border-b border-slate-200 pb-8">
+              <BrandLogo className="h-12 w-auto mb-8 hidden print:block" />
+              <h2 className="text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4">Corporate Overview</h2>
+              <p className="text-slate-600 leading-relaxed text-lg font-light">
+                Delta3Tek LLC is an advanced technology integration firm architecting next-generation digital solutions for the public sector. We leverage agile methodologies and a zero-trust mindset to ensure delivery pipelines strictly align with strategic federal operational goals.
+              </p>
+            </div>
+  
+            {/* Company Data Grid */}
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8">
+              <h3 className="text-sm font-bold text-[#b48c5a] uppercase tracking-widest mb-6">Company Snapshot</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+                <div>
+                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">UEI</span>
+                  <span className="font-mono font-bold text-[#1e3a8a]">[PENDING]</span>
+                </div>
+                <div>
+                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">CAGE Code</span>
+                  <span className="font-mono font-bold text-[#1e3a8a]">[PENDING]</span>
+                </div>
+                <div>
+                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">Socioeconomic</span>
+                  <span className="font-bold text-[#1e3a8a]">Small Business</span>
+                </div>
+                <div>
+                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">Clearances</span>
+                  <span className="font-bold text-[#1e3a8a]">Cleared Facility & Personnel</span>
+                </div>
+              </div>
+              
+              <div className="mt-6 pt-6 border-t border-slate-200">
+                <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-2">Primary NAICS Codes</span>
+                <div className="flex flex-wrap gap-2 text-xs font-mono font-bold text-slate-600">
+                  <span className="bg-white px-2 py-1 border border-slate-200 rounded">541511</span>
+                  <span className="bg-white px-2 py-1 border border-slate-200 rounded">541512</span>
+                  <span className="bg-white px-2 py-1 border border-slate-200 rounded">541519</span>
+                  <span className="bg-white px-2 py-1 border border-slate-200 rounded">541611</span>
+                </div>
+              </div>
+            </div>
+  
+            {/* Core Competencies */}
+            <div>
+              <h3 className="text-2xl font-extrabold text-[#1e3a8a] mb-6">Core Competencies</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-extrabold text-[#1e3a8a] flex items-center gap-2 mb-3"><Server size={18} className="text-[#b48c5a]"/> Enterprise IT & Cloud</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-3">Secure migration of critical workloads to AWS GovCloud and Azure. Implementation of Infrastructure as Code (IaC).</p>
+                  <ul className="text-sm font-bold text-slate-500 space-y-1 pl-6 list-disc marker:text-[#b48c5a]">
+                    <li>FedRAMP Compliant Architectures</li>
+                    <li>High-Availability & DR Planning</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-[#1e3a8a] flex items-center gap-2 mb-3"><ShieldCheck size={18} className="text-[#b48c5a]"/> Cybersecurity & Zero Trust</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-3">NIST 800-53 aligned security architectures. Streamlined Risk Management Framework (RMF) assessments to accelerate ATO.</p>
+                  <ul className="text-sm font-bold text-slate-500 space-y-1 pl-6 list-disc marker:text-[#b48c5a]">
+                    <li>Zero Trust Architecture Implementation</li>
+                    <li>Continuous Monitoring & Threat Hunting</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-[#1e3a8a] flex items-center gap-2 mb-3"><Code size={18} className="text-[#b48c5a]"/> DevSecOps Integration</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-3">Automated CI/CD pipelines with integrated SAST/DAST testing. Containerization for scalable mission applications.</p>
+                  <ul className="text-sm font-bold text-slate-500 space-y-1 pl-6 list-disc marker:text-[#b48c5a]">
+                    <li>Pipeline Automation (Kubernetes)</li>
+                    <li>Agile & SAFe Transformations</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-[#1e3a8a] flex items-center gap-2 mb-3"><Database size={18} className="text-[#b48c5a]"/> Data Analytics & AI</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-3">Enterprise data lakes and predictive machine learning models to transition agencies to actionable intelligence.</p>
+                  <ul className="text-sm font-bold text-slate-500 space-y-1 pl-6 list-disc marker:text-[#b48c5a]">
+                    <li>Predictive Analytics & ML Models</li>
+                    <li>Interactive BI Dashboards</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+  
+            {/* Past Performance */}
+            <div>
+              <h3 className="text-2xl font-extrabold text-[#1e3a8a] mb-6">Past Performance Highlights</h3>
+              <div className="space-y-6">
+                <div className="border border-slate-200 p-6 rounded-xl">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 gap-2">
+                    <h4 className="font-extrabold text-lg text-[#1e3a8a]">Federal Civilian Agency</h4>
+                  </div>
+                  <p className="text-sm text-slate-600 mb-3"><strong className="text-slate-800">Challenge:</strong> Legacy on-premise data center suffered from latency issues and security bottlenecks.</p>
+                  <p className="text-sm text-slate-600 mb-3"><strong className="text-slate-800">Solution:</strong> Lift-and-shift migration of 150+ critical applications to FedRAMP High Azure GovCloud using Terraform.</p>
+                  <p className="text-sm font-bold text-[#b48c5a]"><strong className="text-[#1e3a8a]">Outcome:</strong> 40% reduction in system downtime and 25% decrease in infrastructure O&M costs.</p>
+                </div>
+  
+                <div className="border border-slate-200 p-6 rounded-xl">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 gap-2">
+                    <h4 className="font-extrabold text-lg text-[#1e3a8a]">Defense Agency</h4>
+                  </div>
+                  <p className="text-sm text-slate-600 mb-3"><strong className="text-slate-800">Challenge:</strong> Manual testing resulted in prolonged Authority to Operate (ATO) cycles.</p>
+                  <p className="text-sm text-slate-600 mb-3"><strong className="text-slate-800">Solution:</strong> Architected a hardened CI/CD pipeline integrating Fortify and SonarQube to shift security left.</p>
+                  <p className="text-sm font-bold text-[#b48c5a]"><strong className="text-[#1e3a8a]">Outcome:</strong> Cut code deployment time to under 4 hours and accelerated ATO approval by 3 months.</p>
+                </div>
+              </div>
+            </div>
+  
+            {/* Contact / Footer for Print */}
+            <div className="border-t border-slate-200 pt-8 flex justify-between items-center text-sm font-bold text-slate-500">
+              <span>info@delta3tek.com</span>
+              <span>TBD</span>
+              <span>www.delta3tek.com</span>
+            </div>
+  
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+
+/* =========================================
+   Individual Capability Pages 
+   ========================================= */
+
+const EnterpriseITPage = ({ navigateTo }) => (
+  <SubpageLayout
+    navigateTo={navigateTo}
+    title="Enterprise IT & Cloud"
+    description="Modernize legacy systems and migrate critical workloads to AWS GovCloud and Azure. We architect scalable solutions designed to reduce infrastructure maintenance costs."
+    icon={Server}
+    content={
+      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+        <p>At Delta3Tek, we understand the critical nature of government IT modernization. Relying on outdated, monolithic legacy systems presents significant security vulnerabilities and operational bottlenecks. We engineer seamless transitions to modern, scalable cloud environments.</p>
+        <p>Our cloud architects possess extensive experience in designing multi-cloud and hybrid environments (AWS, Azure, Google Cloud Platform) that strictly adhere to FedRAMP compliance requirements. By implementing Infrastructure as Code (IaC), we ensure your deployments are repeatable, secure, and easily auditable.</p>
+      </div>
+    }
+    features={[
+      "Secure Cloud Migrations (AWS GovCloud, Azure)",
+      "Legacy System Modernization & Refactoring",
+      "Infrastructure as Code (IaC) with Terraform",
+      "FedRAMP & DISA IL4/IL5 Compliant Architectures",
+      "High-Availability & Disaster Recovery Planning",
+      "24/7 Operations & Infrastructure Management"
+    ]}
+  />
 );
 
 const CybersecurityPage = ({ navigateTo }) => (
-  <div className="animate-in fade-in duration-500 bg-gray-50 min-h-[60vh]">
-    <PageHeader 
-      title="Cybersecurity & RMF" 
-      description="Implement robust Zero Trust Architectures strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework process to accelerate ATO."
-      icon={ShieldCheck}
-      navigateTo={navigateTo}
-    />
-    <section className="py-24 -mt-16 relative z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12">
-          <div className="lg:w-1/2 bg-white p-12 rounded-3xl shadow-xl border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 tracking-tight">Information Assurance & Defense</h2>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              Securing federal data against evolving threat landscapes is our paramount objective. Delta3Tek approaches cybersecurity not just as a compliance checklist, but as a foundational element built into every layer of your IT enterprise.
-            </p>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              We specialize in migrating agencies from perimeter-based security to a modern Zero Trust Architecture (ZTA). Our certified security professionals (CISSP) expertly navigate the NIST Risk Management Framework (RMF), ensuring your systems achieve and maintain their Authority to Operate (ATO) without stifling operational efficiency.
-            </p>
-          </div>
-          <div className="lg:w-1/2 bg-slate-100 p-12 rounded-3xl border border-slate-200 mt-10 lg:mt-0 shadow-inner">
-            <h3 className="text-2xl font-extrabold text-slate-900 mb-10 border-b border-slate-200 pb-5 uppercase tracking-widest text-sm">Key Capabilities</h3>
-            <FeatureList features={[
-              "Zero Trust Architecture (ZTA) Implementation",
-              "NIST 800-53 RMF & ATO Support",
-              "CMMC Readiness & Compliance Consulting",
-              "Vulnerability Assessments & Penetration Testing",
-              "Continuous Monitoring & Threat Hunting",
-              "Identity, Credential, and Access Management (ICAM)"
-            ]} />
-          </div>
-        </div>
+  <SubpageLayout
+    navigateTo={navigateTo}
+    title="Cybersecurity & RMF"
+    description="Implement robust Zero Trust Architectures strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework process to accelerate ATO."
+    icon={ShieldCheck}
+    content={
+      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+        <p>Securing federal data against evolving threat landscapes is our paramount objective. Delta3Tek approaches cybersecurity not just as a compliance checklist, but as a foundational element built into every layer of your IT enterprise.</p>
+        <p>We specialize in migrating agencies from perimeter-based security to a modern Zero Trust Architecture (ZTA). Our certified security professionals (CISSP) expertly navigate the NIST Risk Management Framework (RMF), ensuring your systems achieve and maintain their Authority to Operate (ATO) without stifling operational efficiency.</p>
       </div>
-    </section>
-  </div>
+    }
+    features={[
+      "Zero Trust Architecture (ZTA) Implementation",
+      "NIST 800-53 RMF & ATO Support",
+      "CMMC Readiness & Compliance Consulting",
+      "Vulnerability Assessments & Penetration Testing",
+      "Continuous Monitoring & Threat Hunting",
+      "Identity, Credential, and Access Management (ICAM)"
+    ]}
+  />
 );
 
 const DevSecOpsPage = ({ navigateTo }) => (
-  <div className="animate-in fade-in duration-500 bg-gray-50 min-h-[60vh]">
-    <PageHeader 
-      title="DevSecOps Integration" 
-      description="Bake security directly into the software lifecycle. We automate CI/CD pipelines to help federal development teams reduce deployment cycles by 40%."
-      icon={Code}
-      navigateTo={navigateTo}
-    />
-    <section className="py-24 -mt-16 relative z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12">
-          <div className="lg:w-1/2 bg-white p-12 rounded-3xl shadow-xl border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 tracking-tight">Secure, Rapid Delivery Pipelines</h2>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              Traditional software development methodologies often treat security as an afterthought, leading to delayed deployments and increased vulnerabilities. Delta3Tek implements a "Shift-Left" paradigm, embedding automated security controls directly into your CI/CD pipelines.
-            </p>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              Our DevSecOps engineers build highly automated, containerized environments using Docker and Kubernetes. We facilitate agile transformations that break down silos between development, security, and operations teams, enabling your agency to release secure, high-quality software at mission speed.
-            </p>
-          </div>
-          <div className="lg:w-1/2 bg-slate-100 p-12 rounded-3xl border border-slate-200 mt-10 lg:mt-0 shadow-inner">
-            <h3 className="text-2xl font-extrabold text-slate-900 mb-10 border-b border-slate-200 pb-5 uppercase tracking-widest text-sm">Key Capabilities</h3>
-            <FeatureList features={[
-              "CI/CD Pipeline Architecture & Automation",
-              "Automated Security Testing (SAST/DAST)",
-              "Containerization & Orchestration (Kubernetes)",
-              "Agile & SAFe Methodology Transformations",
-              "Microservices Architecture Design",
-              "Continuous Deployment & Release Management"
-            ]} />
-          </div>
+  <SubpageLayout
+    navigateTo={navigateTo}
+    title="DevSecOps Integration"
+    description="Bake security directly into the software lifecycle. We automate CI/CD pipelines to help federal development teams reduce deployment cycles by 40%."
+    icon={Code}
+    content={
+      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+        <p>Traditional software development methodologies often treat security as an afterthought, leading to delayed deployments and increased vulnerabilities. Delta3Tek implements a "Shift-Left" paradigm, embedding automated security controls directly into your CI/CD pipelines.</p>
+        <p>Our DevSecOps engineers build highly automated, containerized environments using Docker and Kubernetes. We facilitate agile transformations that break down silos between development, security, and operations teams, enabling your agency to release secure, high-quality software at mission speed.</p>
+      </div>
+    }
+    features={[
+      "CI/CD Pipeline Architecture & Automation",
+      "Automated Security Testing (SAST/DAST)",
+      "Containerization & Orchestration (Kubernetes)",
+      "Agile & SAFe Methodology Transformations",
+      "Microservices Architecture Design",
+      "Continuous Deployment & Release Management"
+    ]}
+  />
+);
+
+const DataAnalyticsPage = ({ navigateTo }) => (
+  <SubpageLayout
+    navigateTo={navigateTo}
+    title="Data Analytics & AI"
+    description="Transform siloed agency data into actionable intelligence. We deploy applied AI models that improve reporting accuracy and drive predictive decision-making."
+    icon={Database}
+    content={
+      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+        <p>Federal agencies collect massive volumes of data, but extracting meaningful insights remains a persistent challenge. Delta3Tek builds robust data pipelines and enterprise data warehouses that break down silos, ensuring your data is clean, accessible, and ready for analysis.</p>
+        <p>By leveraging applied Artificial Intelligence and Machine Learning, we transition organizations from descriptive reporting to predictive and prescriptive analytics. Our custom dashboarding solutions provide leadership with real-time visibility to make data-driven decisions that directly impact mission outcomes.</p>
+      </div>
+    }
+    features={[
+      "Enterprise Data Warehousing & Data Lakes",
+      "Predictive Analytics & Machine Learning Models",
+      "Natural Language Processing (NLP) Solutions",
+      "ETL/ELT Pipeline Development",
+      "Interactive Business Intelligence (BI) Dashboards",
+      "Data Governance & Quality Management"
+    ]}
+  />
+);
+
+/* =========================================
+   LEGAL & COMPLIANCE PAGES
+   ========================================= */
+
+const LegalPageLayout = ({ title, description, icon, content, navigateTo }) => (
+  <div className="bg-[#F8FAFC] min-h-screen pb-24">
+    <PageHeader title={title} description={description} icon={icon} navigateTo={navigateTo} />
+    <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+      <div className="bg-white p-8 md:p-16 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+        <div className="space-y-10 text-slate-600 leading-relaxed font-light">
+          {content}
         </div>
       </div>
     </section>
   </div>
 );
 
-const DataAnalyticsPage = ({ navigateTo }) => (
-  <div className="animate-in fade-in duration-500 bg-gray-50 min-h-[60vh]">
-    <PageHeader 
-      title="Data Analytics & AI" 
-      description="Transform siloed agency data into actionable intelligence. We deploy applied AI models that improve reporting accuracy and drive predictive decision-making."
-      icon={Database}
-      navigateTo={navigateTo}
-    />
-    <section className="py-24 -mt-16 relative z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12">
-          <div className="lg:w-1/2 bg-white p-12 rounded-3xl shadow-xl border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8 tracking-tight">Actionable Mission Intelligence</h2>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              Federal agencies collect massive volumes of data, but extracting meaningful insights remains a persistent challenge. Delta3Tek builds robust data pipelines and enterprise data warehouses that break down silos, ensuring your data is clean, accessible, and ready for analysis.
-            </p>
-            <p className="text-slate-700 text-xl leading-relaxed mb-8 font-light">
-              By leveraging applied Artificial Intelligence and Machine Learning, we transition organizations from descriptive reporting to predictive and prescriptive analytics. Our custom dashboarding solutions provide leadership with real-time visibility to make data-driven decisions that directly impact mission outcomes.
-            </p>
-          </div>
-          <div className="lg:w-1/2 bg-slate-100 p-12 rounded-3xl border border-slate-200 mt-10 lg:mt-0 shadow-inner">
-            <h3 className="text-2xl font-extrabold text-slate-900 mb-10 border-b border-slate-200 pb-5 uppercase tracking-widest text-sm">Key Capabilities</h3>
-            <FeatureList features={[
-              "Enterprise Data Warehousing & Data Lakes",
-              "Predictive Analytics & Machine Learning Models",
-              "Natural Language Processing (NLP) Solutions",
-              "ETL/ELT Pipeline Development",
-              "Interactive Business Intelligence (BI) Dashboards",
-              "Data Governance & Quality Management"
-            ]} />
-          </div>
+const PrivacyPolicyPage = ({ navigateTo }) => (
+  <LegalPageLayout
+    navigateTo={navigateTo}
+    title="Privacy Policy"
+    description="How we collect, use, and protect your information."
+    icon={ShieldCheck}
+    content={
+      <>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">1. Information Collection</h3>
+          <p>We collect information you provide directly to us when you request information, submit a form, or communicate with us. This may include your name, email address, phone number, and any other details you choose to provide.</p>
         </div>
-      </div>
-    </section>
-  </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">2. Use of Information</h3>
+          <p>We use the information we collect to respond to your inquiries, provide federal contracting capabilities briefings, improve our website, and comply with legal obligations.</p>
+        </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">3. Data Security</h3>
+          <p>We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. We adhere to industry best practices and federal compliance guidelines for data protection.</p>
+        </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">4. Third-Party Disclosure</h3>
+          <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential.</p>
+        </div>
+      </>
+    }
+  />
+);
+
+const TermsOfUsePage = ({ navigateTo }) => (
+  <LegalPageLayout
+    navigateTo={navigateTo}
+    title="Terms of Use"
+    description="The rules and guidelines for using the Delta3Tek corporate website."
+    icon={FileText}
+    content={
+      <>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">1. Acceptance of Terms</h3>
+          <p>By accessing and using this website, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this service.</p>
+        </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">2. Intellectual Property</h3>
+          <p>The site and its original content, features, and functionality are owned by Delta3Tek LLC and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+        </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">3. Use of Site Content</h3>
+          <p>The content provided on this website is for informational purposes related to federal IT contracting. You may view, download, and print capability statements and public materials for evaluation purposes. Unauthorized reproduction or commercial distribution is prohibited.</p>
+        </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">4. Disclaimer of Warranties</h3>
+          <p>While we strive to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.</p>
+        </div>
+      </>
+    }
+  />
+);
+
+const AccessibilityPage = ({ navigateTo }) => (
+  <LegalPageLayout
+    navigateTo={navigateTo}
+    title="Section 508 Accessibility"
+    description="Our commitment to digital accessibility for all users."
+    icon={Globe}
+    content={
+      <>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Commitment to Accessibility</h3>
+          <p>Delta3Tek LLC is committed to making its electronic and information technologies accessible to individuals with disabilities in compliance with Section 508 of the Rehabilitation Act (29 U.S.C. 794d), as amended in 1998.</p>
+        </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Standards & Compliance</h3>
+          <p>We continuously test and modify our website to ensure it meets or exceeds the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards. This includes ensuring compatibility with screen readers, providing keyboard navigation, and maintaining proper color contrast ratios.</p>
+        </div>
+        <div>
+          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Reporting Accessibility Issues</h3>
+          <p>If you encounter any difficulty accessing the information on this site, or if you need information provided in an alternative format, please contact us immediately at <strong className="text-[#1e3a8a] font-bold">info@delta3tek.com</strong>. Please include the web address (URL) of the page you are having issues with and your contact information so we can assist you.</p>
+        </div>
+      </>
+    }
+  />
 );
