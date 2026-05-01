@@ -112,14 +112,19 @@ export default function App() {
             {/* Desktop Menu */}
             <nav className="hidden md:flex space-x-8 items-center">
               {['Home', 'Capabilities', 'Service Delivery Models', 'Past Performance', 'Firm Profile'].map((item) => {
-                let target = 'home';
+                let target = ''; // Default to empty for Home (scrolls to top)
                 if (item === 'Capabilities') target = 'services';
                 else if (item === 'Service Delivery Models') target = 'service-delivery-models';
                 else if (item === 'Past Performance') target = 'performance';
                 else if (item === 'Firm Profile') target = 'about';
                 
                 return (
-                  <a key={item} href={`#${target}`} onClick={(e) => handleNavClick(e, 'home', target)} className={`relative group text-sm font-bold tracking-wide transition-colors ${currentPage === 'home' && target === 'home' ? 'text-[#1e3a8a]' : 'text-slate-600 hover:text-[#b48c5a]'}`}>
+                  <a 
+                    key={item} 
+                    href={target ? `#${target}` : '#'} 
+                    onClick={(e) => handleNavClick(e, 'home', target)} 
+                    className={`relative group text-sm font-bold tracking-wide transition-colors ${currentPage === 'home' && (item === 'Home' ? true : false) ? 'text-[#1e3a8a]' : 'text-slate-600 hover:text-[#b48c5a]'}`}
+                  >
                     {item}
                     <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#b48c5a] transition-all duration-300 group-hover:w-full"></span>
                   </a>
@@ -157,7 +162,7 @@ export default function App() {
       {currentPage === 'home' && (
         <>
           {/* Premium Hero Section with Gradient, Glow & Grid */}
-          <section className="relative pt-28 pb-36 md:pt-40 md:pb-48 overflow-hidden bg-slate-950">
+          <section id="home" className="relative pt-28 pb-36 md:pt-40 md:pb-48 overflow-hidden bg-slate-950">
             
             {/* Architectural Background Grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#334155_1px,transparent_1px),linear-gradient(to_bottom,#334155_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
