@@ -639,7 +639,7 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
           <h3 className="text-sm font-bold text-[#0B1F3B] mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">Core Competencies</h3>
           <FeatureList features={features} />
           <div className="mt-8 pt-8 border-t border-slate-100">
-            <button onClick={() => { document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); }} className="w-full bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm text-center">
+            <button onClick={() => navigateTo('contact')} className="w-full bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm text-center">
               Discuss Your Project
             </button>
           </div>
