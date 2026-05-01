@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Optional: Custom selection highlight to match the Delta3Tek brand */
+::selection {
+  background-color: #b48c5a;
+  color: white;
+}
