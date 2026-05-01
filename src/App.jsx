@@ -330,7 +330,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* Service Delivery Models (New Section) */}
+          {/* Service Delivery Models (Engagement Models) */}
           <section id="service-delivery-models" className="py-24 bg-white border-t border-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16 max-w-3xl mx-auto">
@@ -342,7 +342,6 @@ export default function App() {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {/* Staff Augmentation */}
                 <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
                     <Users className="text-[#1e3a8a] w-6 h-6" />
@@ -353,7 +352,6 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* IT Solutions */}
                 <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
                     <Monitor className="text-[#1e3a8a] w-6 h-6" />
@@ -364,7 +362,6 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* Project Services */}
                 <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
                     <Target className="text-[#1e3a8a] w-6 h-6" />
@@ -375,7 +372,6 @@ export default function App() {
                   </p>
                 </div>
 
-                {/* Custom Solutions */}
                 <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
                     <Settings className="text-[#1e3a8a] w-6 h-6" />
@@ -488,7 +484,7 @@ export default function App() {
               
               <div className="bg-white rounded-3xl p-10 md:p-16 shadow-xl border border-gray-100 mb-16">
                 <p className="text-slate-700 mb-8 leading-relaxed text-xl font-light">
-                  Delta3Tek LLC is an advanced technology integration firm architecting next-generation digital solutions for the public sector. Founded by enterprise IT veterans with <strong className="text-slate-900 font-bold">over 10+ years of federal contracting experience</strong>, our engineering teams bring deep-domain expertise in deploying and scaling mission-critical infrastructure.
+                  Delta3Tek, LLC is an advanced technology integration firm architecting next-generation digital solutions for the public sector. Founded by enterprise IT veterans with <strong className="text-slate-900 font-bold">over 10+ years of federal contracting experience</strong>, our engineering teams bring deep-domain expertise in deploying and scaling mission-critical infrastructure.
                 </p>
                 <p className="text-slate-700 leading-relaxed text-xl font-light">
                   We understand that federal agencies must navigate the complex intersection of strict security compliance, continuous modernization, and legacy technical debt. Our leadership comprises <strong className="text-slate-900 font-bold">PMP-certified managers, CISSP security professionals, and AWS/Azure Certified Cloud Architects</strong>. By leveraging agile methodologies and a zero-trust mindset, our DevSecOps-driven approach ensures transparent delivery pipelines directly aligned with your strategic operational goals.
@@ -547,7 +543,7 @@ export default function App() {
                 <BrandLogo className="h-16 w-auto" />
               </div>
               <p className="text-slate-400 text-base leading-relaxed mb-8 max-w-md font-light">
-                Delta3Tek LLC delivers excellence in federal IT modernization, engineering secure cloud environments and automating DevSecOps pipelines.
+                Delta3Tek, LLC delivers excellence in federal IT modernization, engineering secure cloud environments and automating DevSecOps pipelines.
               </p>
               <div className="text-sm font-mono text-slate-500 space-y-2 bg-slate-900 inline-block p-4 rounded-lg border border-slate-800">
                 <p><span className="text-slate-600 uppercase tracking-widest text-[10px] block mb-1">Entity UEI</span> <span className="font-bold text-white">[PENDING]</span></p>
@@ -585,7 +581,7 @@ export default function App() {
           </div>
 
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 font-light">
-            <p>&copy; {new Date().getFullYear()} Delta3Tek LLC. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Delta3Tek, LLC. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0 font-medium">
               <a href="#privacy" onClick={(e) => handleNavClick(e, 'privacy-policy')} className="hover:text-[#b48c5a] transition-colors">Privacy Policy</a>
               <a href="#terms" onClick={(e) => handleNavClick(e, 'terms-of-use')} className="hover:text-[#b48c5a] transition-colors">Terms of Use</a>
@@ -661,7 +657,7 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
     <div className="animate-in fade-in duration-500 bg-[#F8FAFC] min-h-screen pb-24 print:bg-white print:pb-0">
       <PageHeader 
         title="Corporate Capability Statement" 
-        description="A comprehensive overview of Delta3Tek's core competencies, past performance, and federal procurement readiness."
+        description="A comprehensive overview of Delta3Tek, LLC's core competencies, past performance, and federal procurement readiness."
         navigateTo={navigateTo}
       />
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 print:m-0 print:p-0 print:w-full print:max-w-none print:shadow-none">
@@ -683,7 +679,7 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
               <BrandLogo className="h-12 w-auto mb-8 hidden print:block" />
               <h2 className="text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4">Corporate Overview</h2>
               <p className="text-slate-600 leading-relaxed text-lg font-light">
-                Delta3Tek LLC is an advanced technology integration firm architecting next-generation digital solutions for the public sector. We leverage agile methodologies and a zero-trust mindset to ensure delivery pipelines strictly align with strategic federal operational goals.
+                Delta3Tek, LLC is an advanced technology integration firm architecting next-generation digital solutions for the public sector. We leverage agile methodologies and a zero-trust mindset to ensure delivery pipelines strictly align with strategic federal operational goals.
               </p>
             </div>
   
@@ -807,7 +803,7 @@ const EnterpriseITPage = ({ navigateTo }) => (
     description="Modernize legacy systems and migrate critical workloads to AWS GovCloud and Azure. We architect scalable solutions designed to reduce infrastructure maintenance costs."
     content={
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>At Delta3Tek, we understand the critical nature of government IT modernization. Relying on outdated, monolithic legacy systems presents significant security vulnerabilities and operational bottlenecks. We engineer seamless transitions to modern, scalable cloud environments.</p>
+        <p>At Delta3Tek, LLC, we understand the critical nature of government IT modernization. Relying on outdated, monolithic legacy systems presents significant security vulnerabilities and operational bottlenecks. We engineer seamless transitions to modern, scalable cloud environments.</p>
         <p>Our cloud architects possess extensive experience in designing multi-cloud and hybrid environments (AWS, Azure, Google Cloud Platform) that strictly adhere to FedRAMP compliance requirements. By implementing Infrastructure as Code (IaC), we ensure your deployments are repeatable, secure, and easily auditable.</p>
       </div>
     }
@@ -829,7 +825,7 @@ const CybersecurityPage = ({ navigateTo }) => (
     description="Implement robust Zero Trust Architectures strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework process to accelerate ATO."
     content={
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>Securing federal data against evolving threat landscapes is our paramount objective. Delta3Tek approaches cybersecurity not just as a compliance checklist, but as a foundational element built into every layer of your IT enterprise.</p>
+        <p>Securing federal data against evolving threat landscapes is our paramount objective. Delta3Tek, LLC approaches cybersecurity not just as a compliance checklist, but as a foundational element built into every layer of your IT enterprise.</p>
         <p>We specialize in migrating agencies from perimeter-based security to a modern Zero Trust Architecture (ZTA). Our certified security professionals (CISSP) expertly navigate the NIST Risk Management Framework (RMF), ensuring your systems achieve and maintain their Authority to Operate (ATO) without stifling operational efficiency.</p>
       </div>
     }
@@ -851,7 +847,7 @@ const DevSecOpsPage = ({ navigateTo }) => (
     description="Bake security directly into the software lifecycle. We automate CI/CD pipelines to help federal development teams reduce deployment cycles by 40%."
     content={
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>Traditional software development methodologies often treat security as an afterthought, leading to delayed deployments and increased vulnerabilities. Delta3Tek implements a "Shift-Left" paradigm, embedding automated security controls directly into your CI/CD pipelines.</p>
+        <p>Traditional software development methodologies often treat security as an afterthought, leading to delayed deployments and increased vulnerabilities. Delta3Tek, LLC implements a "Shift-Left" paradigm, embedding automated security controls directly into your CI/CD pipelines.</p>
         <p>Our DevSecOps engineers build highly automated, containerized environments using Docker and Kubernetes. We facilitate agile transformations that break down silos between development, security, and operations teams, enabling your agency to release secure, high-quality software at mission speed.</p>
       </div>
     }
@@ -873,7 +869,7 @@ const DataAnalyticsPage = ({ navigateTo }) => (
     description="Transform siloed agency data into actionable intelligence. We deploy applied AI models that improve reporting accuracy and drive predictive decision-making."
     content={
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>Federal agencies collect massive volumes of data, but extracting meaningful insights remains a persistent challenge. Delta3Tek builds robust data pipelines and enterprise data warehouses that break down silos, ensuring your data is clean, accessible, and ready for analysis.</p>
+        <p>Federal agencies collect massive volumes of data, but extracting meaningful insights remains a persistent challenge. Delta3Tek, LLC builds robust data pipelines and enterprise data warehouses that break down silos, ensuring your data is clean, accessible, and ready for analysis.</p>
         <p>By leveraging applied Artificial Intelligence and Machine Learning, we transition organizations from descriptive reporting to predictive and prescriptive analytics. Our custom dashboarding solutions provide leadership with real-time visibility to make data-driven decisions that directly impact mission outcomes.</p>
       </div>
     }
@@ -937,7 +933,7 @@ const TermsOfUsePage = ({ navigateTo }) => (
   <LegalPageLayout
     navigateTo={navigateTo}
     title="Terms of Use"
-    description="The rules and guidelines for using the Delta3Tek corporate website."
+    description="The rules and guidelines for using the Delta3Tek, LLC corporate website."
     content={
       <>
         <div>
@@ -946,7 +942,7 @@ const TermsOfUsePage = ({ navigateTo }) => (
         </div>
         <div>
           <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">2. Intellectual Property</h3>
-          <p>The site and its original content, features, and functionality are owned by Delta3Tek LLC and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+          <p>The site and its original content, features, and functionality are owned by Delta3Tek, LLC and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
         </div>
         <div>
           <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">3. Use of Site Content</h3>
@@ -970,7 +966,7 @@ const AccessibilityPage = ({ navigateTo }) => (
       <>
         <div>
           <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Commitment to Accessibility</h3>
-          <p>Delta3Tek LLC is committed to making its electronic and information technologies accessible to individuals with disabilities in compliance with Section 508 of the Rehabilitation Act (29 U.S.C. 794d), as amended in 1998.</p>
+          <p>Delta3Tek, LLC is committed to making its electronic and information technologies accessible to individuals with disabilities in compliance with Section 508 of the Rehabilitation Act (29 U.S.C. 794d), as amended in 1998.</p>
         </div>
         <div>
           <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Standards & Compliance</h3>
@@ -988,18 +984,18 @@ const AccessibilityPage = ({ navigateTo }) => (
 const CareersPage = ({ navigateTo }) => (
   <LegalPageLayout
     navigateTo={navigateTo}
-    title="Working at Delta3Tek"
+    title="Working at Delta3Tek, LLC"
     description="Join our team to solve complex, mission-critical challenges through innovative technology solutions."
     content={
       <>
         <div>
-          <p className="mb-6 text-lg">At Delta3Tek, we solve complex, mission-critical challenges for federal agencies through innovative and secure technology solutions. Our work spans cloud modernization, cybersecurity, and DevSecOps—supporting systems that demand the highest levels of performance, reliability, and compliance.</p>
+          <p className="mb-6 text-lg">At Delta3Tek, LLC, we solve complex, mission-critical challenges for federal agencies through innovative and secure technology solutions. Our work spans cloud modernization, cybersecurity, and DevSecOps—supporting systems that demand the highest levels of performance, reliability, and compliance.</p>
           
           <p className="mb-6 text-lg">We believe that delivering exceptional outcomes starts with building an exceptional team. Our culture is rooted in collaboration, continuous learning, and technical excellence. We empower our people to think critically, innovate confidently, and contribute meaningfully to projects that have real-world impact.</p>
           
-          <p className="mb-6 text-lg">At Delta3Tek, you’ll work alongside experienced professionals who are passionate about technology and committed to delivering results. We invest in your growth—both professionally and personally—by providing opportunities to develop new skills, take on challenging work, and advance your career.</p>
+          <p className="mb-6 text-lg">At Delta3Tek, LLC, you’ll work alongside experienced professionals who are passionate about technology and committed to delivering results. We invest in your growth—both professionally and personally—by providing opportunities to develop new skills, take on challenging work, and advance your career.</p>
           
-          <p className="mb-8 text-lg">We are always looking for motivated individuals who thrive in dynamic environments, embrace innovation, and are driven to make a difference. If you enjoy solving complex problems, building modern solutions, and working on impactful federal programs, Delta3Tek could be the right place for you.</p>
+          <p className="mb-8 text-lg">We are always looking for motivated individuals who thrive in dynamic environments, embrace innovation, and are driven to make a difference. If you enjoy solving complex problems, building modern solutions, and working on impactful federal programs, Delta3Tek, LLC could be the right place for you.</p>
         </div>
         
         <div className="bg-slate-50 border border-slate-200 p-8 rounded-xl text-center">
