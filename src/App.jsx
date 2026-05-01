@@ -984,7 +984,7 @@ const AccessibilityPage = ({ navigateTo }) => (
 const CareersPage = ({ navigateTo }) => (
   <LegalPageLayout
     navigateTo={navigateTo}
-    title="Working at Delta3Tek, LLC"
+    title="Working at Delta3Tek"
     description="Join our team to solve complex, mission-critical challenges through innovative technology solutions."
     content={
       <>
