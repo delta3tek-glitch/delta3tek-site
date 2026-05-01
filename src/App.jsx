@@ -27,7 +27,8 @@ import {
   Monitor,
   Target,
   Settings,
-  Loader2
+  Loader2,
+  AlertCircle
 } from 'lucide-react';
 
 /* --- CUSTOM SVG LOGO COMPONENT --- */
@@ -1012,25 +1013,31 @@ const CareersPage = ({ navigateTo }) => (
 );
 
 const ContactPage = ({ navigateTo }) => {
-  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmissionStatus('submitting');
     
     const formData = new FormData(e.target);
-    const data = {
-      to: 'delta3tek@gmail.com',
-      name: formData.get('name'),
-      email: formData.get('email'),
-      organization: formData.get('organization'),
-      message: formData.get('message'),
-      subject: `Website Inquiry: ${formData.get('organization') || formData.get('name')}`
-    };
 
-    // NOTE: Submissions are now structured as data sent to delta3tek@gmail.com
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setSubmissionStatus('success');
+    try {
+      const response = await fetch("https://formspree.io/f/mqenadqj", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+      } else {
+        setSubmissionStatus('error');
+      }
+    } catch (err) {
+      setSubmissionStatus('error');
+    }
   };
 
   if (submissionStatus === 'success') {
@@ -1068,6 +1075,13 @@ const ContactPage = ({ navigateTo }) => {
             <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-2 tracking-tight">Send a Message</h2>
             <p className="text-slate-500 mb-8 font-light">Fill out the form below and a member of our federal team will reach out shortly.</p>
             
+            {submissionStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center">
+                <AlertCircle size={18} className="mr-2 flex-shrink-0" />
+                <p className="text-sm">There was an issue sending your message. Please try again or email us directly.</p>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -1152,27 +1166,31 @@ const ContactPage = ({ navigateTo }) => {
 };
 
 const PartneringPage = ({ navigateTo }) => {
-  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success'
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmissionStatus('submitting');
 
     const formData = new FormData(e.target);
-    const data = {
-      to: 'delta3tek@gmail.com',
-      poc: formData.get('name'),
-      email: formData.get('email'),
-      company: formData.get('company'),
-      uei_cage: formData.get('uei'),
-      socioeconomic: formData.get('status'),
-      capabilities: formData.get('message'),
-      subject: `Partnership Inquiry: ${formData.get('company')}`
-    };
 
-    // NOTE: Direct submission logic targets delta3tek@gmail.com without workstation mailbox interference
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setSubmissionStatus('success');
+    try {
+      const response = await fetch("https://formspree.io/f/mqenadqj", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+      } else {
+        setSubmissionStatus('error');
+      }
+    } catch (err) {
+      setSubmissionStatus('error');
+    }
   };
 
   if (submissionStatus === 'success') {
@@ -1210,6 +1228,13 @@ const PartneringPage = ({ navigateTo }) => {
             <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-2 tracking-tight">Partner With Us</h2>
             <p className="text-slate-500 mb-8 font-light">Submit your corporate capabilities below to initiate a teaming discussion.</p>
             
+            {submissionStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center">
+                <AlertCircle size={18} className="mr-2 flex-shrink-0" />
+                <p className="text-sm">There was an issue submitting your request. Please try again later.</p>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
