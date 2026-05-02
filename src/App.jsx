@@ -244,15 +244,15 @@ export default function App() {
                 
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-[#b48c5a]/30 text-[#b48c5a] text-xs font-bold uppercase tracking-widest mb-10 shadow-lg backdrop-blur-sm">
                   <span className="w-2 h-2 rounded-full bg-[#b48c5a] animate-pulse"></span>
-                  Federal IT Consulting & Staffing Agency
+                  Federal IT Solutions Partner
                 </div>
                 
                 <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] mb-8 tracking-tight">
-                  Enterprise IT Solutions & Federal Consulting Services
+                  Azure Cloud, Cybersecurity, and DevSecOps Solutions for Federal Agencies
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
-                  Supporting government contractors and federal agencies with secure cloud consulting services, cybersecurity, and <strong className="text-white font-medium">IT staff augmentation services</strong>. Based in Northern Virginia / Washington DC.
+                  Supporting mission-critical systems with secure, scalable, and compliant architectures. We modernize legacy infrastructure to accelerate federal missions.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-5 justify-center">
@@ -544,13 +544,13 @@ export default function App() {
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16">
                 <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Firm Profile</span>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">Federal IT Consulting Firm USA</h2>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">Delta3Tek Federal IT Consulting Firm</h2>
                 <div className="w-20 h-1 bg-[#b48c5a] mx-auto rounded-full"></div>
               </div>
               
               <div className="bg-white rounded-3xl p-10 md:p-16 shadow-xl border border-gray-100 mb-16">
                 <p className="text-slate-700 mb-8 leading-relaxed text-xl font-light">
-                  Delta3Tek, LLC is an advanced technology integration and <strong className="text-slate-900 font-bold">government IT consulting firm</strong> architecting next-generation digital solutions for the public sector. Founded by enterprise IT veterans with over 10+ years of federal contracting experience, our engineering teams bring deep-domain expertise in deploying and scaling mission-critical infrastructure across the Washington DC and Northern Virginia metro areas.
+                  Delta3Tek, LLC is an advanced technology integration and federal government IT consulting firm architecting next-generation digital solutions for the public sector. Founded by enterprise IT veterans with over 10+ years of federal contracting experience, our engineering teams bring deep-domain expertise in deploying and scaling mission-critical infrastructure across the Washington DC and Northern Virginia metro areas.
                 </p>
                 <p className="text-slate-700 leading-relaxed text-xl font-light">
                   We understand that federal agencies must navigate the complex intersection of strict security compliance, continuous modernization, and legacy technical debt. Our leadership comprises <strong className="text-slate-900 font-bold">PMP-certified managers, CISSP security professionals, and AWS/Azure Certified Cloud Architects</strong>. By leveraging agile methodologies and a zero-trust mindset, our DevSecOps-driven approach ensures transparent delivery pipelines directly aligned with your strategic operational goals.
@@ -848,7 +848,7 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
             {/* Contact / Footer for Print */}
             <div className="border-t border-slate-200 pt-8 flex justify-between items-center text-sm font-bold text-slate-500">
               <span>info@delta3tek.com</span>
-              <span>TBD</span>
+              <span>Northern Virginia / Washington DC Metro</span>
               <span>www.delta3tek.com</span>
             </div>
   
@@ -1198,7 +1198,7 @@ const ContactPage = ({ navigateTo }) => {
                   </div>
                   <div>
                     <h4 className="font-bold text-[#0B1F3B] text-sm mb-1">Headquarters</h4>
-                    <p className="text-slate-600 text-sm leading-relaxed">TBD</p>
+                    <p className="text-slate-600 text-sm leading-relaxed">Northern Virginia / Washington DC Metro</p>
                   </div>
                 </div>
                 
