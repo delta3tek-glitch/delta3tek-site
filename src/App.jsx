@@ -750,6 +750,8 @@ export default function App() {
                 <li><a href="#service-delivery-models" onClick={(e) => handleNavClick(e, 'home', 'service-delivery-models')} className="hover:text-white transition-colors flex items-center group"><ChevronRight size={14} className="mr-2 text-[#b48c5a] group-hover:translate-x-1 transition-transform"/> Service Delivery Models</a></li>
                 <li><a href="#performance" onClick={(e) => handleNavClick(e, 'home', 'performance')} className="hover:text-white transition-colors flex items-center group"><ChevronRight size={14} className="mr-2 text-[#b48c5a] group-hover:translate-x-1 transition-transform"/> Past Performance</a></li>
                 <li><a href="#about" onClick={(e) => handleNavClick(e, 'home', 'about')} className="hover:text-white transition-colors flex items-center group"><ChevronRight size={14} className="mr-2 text-[#b48c5a] group-hover:translate-x-1 transition-transform"/> Firm Profile</a></li>
+                <li><a href="#partnering" onClick={(e) => handleNavClick(e, 'partnering')} className="hover:text-white transition-colors flex items-center group"><ChevronRight size={14} className="mr-2 text-[#b48c5a] group-hover:translate-x-1 transition-transform"/> Partnering</a></li>
+                <li><a href="#careers" onClick={(e) => handleNavClick(e, 'careers')} className="hover:text-white transition-colors flex items-center group"><ChevronRight size={14} className="mr-2 text-[#b48c5a] group-hover:translate-x-1 transition-transform"/> Careers</a></li>
               </ul>
             </div>
 
