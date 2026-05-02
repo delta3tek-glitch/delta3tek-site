@@ -42,29 +42,31 @@ import {
 } from 'lucide-react';
 
 /* --- CUSTOM SVG LOGO COMPONENT --- */
-const BrandLogo = ({ className }) => (
-  <svg viewBox="0 0 360 80" className={className} xmlns="http://www.w3.org/2000/svg">
-    <g transform="translate(10, 10)">
-      <path d="M 30 0 L 0 55 L 15 55 L 38 12 Z" fill="#1e3a8a" />
-      <path d="M 30 0 L 60 55 L 45 55 L 22 12 Z" fill="#b48c5a" />
-      <path d="M 5 45 L 55 45 L 48 55 L 12 55 Z" fill="#334155" />
-      <circle cx="30" cy="30" r="9" fill="none" stroke="#475569" strokeWidth="2.5" strokeDasharray="4 2"/>
-      <circle cx="30" cy="30" r="5" fill="none" stroke="#475569" strokeWidth="1.5" />
-      <text x="30" y="34" fontSize="11" fontWeight="bold" fill="#475569" textAnchor="middle" fontFamily="sans-serif">3</text>
-    </g>
-    <text x="85" y="48" fontSize="38" fontWeight="900" fontFamily="sans-serif" letterSpacing="-1">
-      <tspan fill="#1e3a8a">Delta</tspan>
-      <tspan fill="#b48c5a">3</tspan>
-      <tspan fill="#334155">Tek</tspan>
-    </text>
-    <text x="88" y="65" fontSize="10" fontWeight="bold" fill="#1e3a8a" fontFamily="sans-serif" letterSpacing="1.2">
-      INTEGRATED TECHNOLOGY SOLUTIONS
-    </text>
-  </svg>
-);
+function BrandLogo({ className }) {
+  return (
+    <svg viewBox="0 0 360 80" className={className} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(10, 10)">
+        <path d="M 30 0 L 0 55 L 15 55 L 38 12 Z" fill="#1e3a8a" />
+        <path d="M 30 0 L 60 55 L 45 55 L 22 12 Z" fill="#b48c5a" />
+        <path d="M 5 45 L 55 45 L 48 55 L 12 55 Z" fill="#334155" />
+        <circle cx="30" cy="30" r="9" fill="none" stroke="#475569" strokeWidth="2.5" strokeDasharray="4 2"/>
+        <circle cx="30" cy="30" r="5" fill="none" stroke="#475569" strokeWidth="1.5" />
+        <text x="30" y="34" fontSize="11" fontWeight="bold" fill="#475569" textAnchor="middle" fontFamily="sans-serif">3</text>
+      </g>
+      <text x="85" y="48" fontSize="38" fontWeight="900" fontFamily="sans-serif" letterSpacing="-1">
+        <tspan fill="#1e3a8a">Delta</tspan>
+        <tspan fill="#b48c5a">3</tspan>
+        <tspan fill="#334155">Tek</tspan>
+      </text>
+      <text x="88" y="65" fontSize="10" fontWeight="bold" fill="#1e3a8a" fontFamily="sans-serif" letterSpacing="1.2">
+        INTEGRATED TECHNOLOGY SOLUTIONS
+      </text>
+    </svg>
+  );
+}
 
 /* --- ANIMATION WRAPPER COMPONENT --- */
-const FadeInView = ({ children, delay = 0, className = "", direction = "up" }) => {
+function FadeInView({ children, delay = 0, className = "", direction = "up" }) {
   const [isVisible, setIsVisible] = useState(false);
   const domRef = React.useRef();
 
@@ -103,7 +105,7 @@ const FadeInView = ({ children, delay = 0, className = "", direction = "up" }) =
       {children}
     </div>
   );
-};
+}
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -759,9 +761,9 @@ export default function App() {
                   <Building2 className="w-5 h-5 text-[#b48c5a] mr-4 flex-shrink-0 mt-0.5" />
                   <span className="leading-relaxed text-base font-light">Northern Virginia / Washington DC Metro</span>
                 </li>
-                <li className="flex items-center bg-slate-900 border border-slate-800 p-5 rounded-xl group hover:border-[#b48c5a]/50 transition-colors cursor-pointer">
+                <li className="flex items-center bg-slate-900 border border-slate-800 p-5 rounded-xl group hover:border-[#b48c5a]/50 transition-colors">
                   <Mail className="w-5 h-5 text-[#b48c5a] mr-4 flex-shrink-0" />
-                  <a href="mailto:info@delta3tek.com" className="group-hover:text-white transition-colors font-medium text-base">info@delta3tek.com</a>
+                  <span className="group-hover:text-white transition-colors font-medium text-base">info@delta3tek.com</span>
                 </li>
               </ul>
             </div>
@@ -786,61 +788,68 @@ export default function App() {
    SUBPAGE COMPONENTS & HELPERS
    ========================================= */
 
-const PageHeader = ({ title, description, navigateTo }) => (
-  <section className="bg-slate-950 text-white pt-16 pb-28 relative overflow-hidden print:hidden">
-    <div className="absolute inset-0 bg-[linear-gradient(to_right,#334155_1px,transparent_1px),linear-gradient(to_bottom,#334155_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20"></div>
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <button onClick={() => navigateTo('home')} className="flex items-center text-[#b48c5a] hover:text-white mb-10 transition-colors font-extrabold text-xs tracking-widest uppercase group">
-        <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> Return to Homepage
-      </button>
-      <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">{title}</h1>
-        <p className="text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
-          {description}
-        </p>
-      </div>
-    </div>
-  </section>
-);
-
-const FeatureList = ({ features }) => (
-  <ul className="space-y-5">
-    {features.map((feature, idx) => (
-      <li key={idx} className="flex items-start">
-        <CheckCircle2 className="w-6 h-6 text-[#b48c5a] mr-4 flex-shrink-0 mt-0.5" />
-        <span className="text-slate-800 text-lg font-medium leading-snug">{feature}</span>
-      </li>
-    ))}
-  </ul>
-);
-
-const SubpageLayout = ({ title, description, content, features, navigateTo }) => (
-  <div className="bg-[#F8FAFC] min-h-screen pb-24">
-    <PageHeader title={title} description={description} navigateTo={navigateTo} />
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
-      <div className="grid lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-8 bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-          <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-6 tracking-tight">Capability Overview</h2>
-          {content}
-        </div>
-        <div className="lg:col-span-4 bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 sticky top-32">
-          <h3 className="text-sm font-bold text-[#0B1F3B] mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">Core Competencies</h3>
-          <FeatureList features={features} />
-          <div className="mt-8 pt-8 border-t border-slate-100">
-            <button onClick={() => navigateTo('contact')} className="w-full bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm text-center">
-              Discuss Your Project
-            </button>
-          </div>
+function PageHeader({ title, description, navigateTo }) {
+  return (
+    <section className="bg-slate-950 text-white pt-16 pb-28 relative overflow-hidden print:hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#334155_1px,transparent_1px),linear-gradient(to_bottom,#334155_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <button onClick={() => navigateTo('home')} className="flex items-center text-[#b48c5a] hover:text-white mb-10 transition-colors font-extrabold text-xs tracking-widest uppercase group">
+          <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> Return to Homepage
+        </button>
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">{title}</h1>
+          <p className="text-xl md:text-2xl text-slate-300 leading-relaxed font-light">
+            {description}
+          </p>
         </div>
       </div>
     </section>
-  </div>
-);
+  );
+}
+
+function FeatureList({ features }) {
+  return (
+    <ul className="space-y-5">
+      {features.map((feature, idx) => (
+        <li key={idx} className="flex items-start">
+          <CheckCircle2 className="w-6 h-6 text-[#b48c5a] mr-4 flex-shrink-0 mt-0.5" />
+          <span className="text-slate-800 text-lg font-medium leading-snug">{feature}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function SubpageLayout({ title, description, content, features, navigateTo }) {
+  return (
+    <div className="bg-[#F8FAFC] min-h-screen pb-24">
+      <PageHeader title={title} description={description} navigateTo={navigateTo} />
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          <div className="lg:col-span-8 bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+            <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-6 tracking-tight">Capability Overview</h2>
+            {content}
+          </div>
+          <div className="lg:col-span-4 bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 sticky top-32">
+            <h3 className="text-sm font-bold text-[#0B1F3B] mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">Core Competencies</h3>
+            <FeatureList features={features} />
+            <div className="mt-8 pt-8 border-t border-slate-100">
+              <button onClick={() => navigateTo('contact')} className="w-full bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-6 py-3.5 rounded-xl font-bold transition-colors text-sm text-center">
+                Discuss Your Project
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
 
 /* =========================================
    NEW: DIGITAL CAPABILITY STATEMENT PAGE
    ========================================= */
-   const CapabilityStatementPage = ({ navigateTo }) => (
+function CapabilityStatementPage({ navigateTo }) {
+  return (
     <div className="animate-in fade-in duration-500 bg-[#F8FAFC] min-h-screen pb-24 print:bg-white print:pb-0">
       <PageHeader 
         title="Corporate Capability Statement" 
@@ -853,7 +862,12 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
           {/* Header/Print Utility Bar (Hidden when printing) */}
           <div className="bg-slate-50 px-8 py-5 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 print:hidden">
             <span className="text-sm font-bold text-slate-500 uppercase tracking-widest">Digital Version</span>
-            <button onClick={() => window.print()} className="inline-flex items-center bg-white border border-slate-200 px-4 py-2 rounded-md text-[#1e3a8a] hover:text-[#b48c5a] hover:border-[#b48c5a]/50 font-bold text-sm transition-colors shadow-sm">
+            <button 
+              type="button"
+              onClick={() => window.print()} 
+              className="inline-flex items-center bg-white border border-slate-200 px-4 py-2 rounded-md text-[#1e3a8a] hover:text-[#b48c5a] hover:border-[#b48c5a]/50 font-bold text-sm transition-colors shadow-sm cursor-pointer"
+              title="Print or Save Corporate Capability Statement as PDF"
+            >
               <Printer size={16} className="mr-2" /> Save to PDF / Print
             </button>
           </div>
@@ -978,11 +992,12 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
       </section>
     </div>
   );
+}
 
 /* =========================================
    NEW: CASE STUDY PAGE
    ========================================= */
-const CaseStudyPage = ({ navigateTo }) => {
+function CaseStudyPage({ navigateTo }) {
   return (
     <div className="bg-[#F8FAFC] min-h-screen pb-24">
       <PageHeader 
@@ -1191,249 +1206,229 @@ const CaseStudyPage = ({ navigateTo }) => {
       </section>
     </div>
   );
-};
+}
 
 
 /* =========================================
    Individual Capability Pages 
    ========================================= */
 
-const EnterpriseITPage = ({ navigateTo }) => (
-  <SubpageLayout
-    navigateTo={navigateTo}
-    title="Enterprise IT Solutions & Cloud Consulting Services"
-    description="Modernize legacy systems and migrate critical workloads to AWS GovCloud and Azure. We architect scalable solutions designed to reduce infrastructure maintenance costs."
-    content={
-      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>At Delta3Tek, LLC, we understand the critical nature of government IT modernization. Relying on outdated, monolithic legacy systems presents significant security vulnerabilities and operational bottlenecks. We engineer seamless transitions to modern, scalable cloud environments.</p>
-        <p>Our cloud architects possess extensive experience in designing multi-cloud and hybrid environments (AWS, Azure, Google Cloud Platform) that strictly adhere to FedRAMP compliance requirements. By implementing Infrastructure as Code (IaC), we ensure your deployments are repeatable, secure, and easily auditable.</p>
-      </div>
-    }
-    features={[
-      "Secure Cloud Migrations (AWS GovCloud, Azure)",
-      "Legacy System Modernization & Refactoring",
-      "Infrastructure as Code (IaC) with Terraform",
-      "FedRAMP & DISA IL4/IL5 Compliant Architectures",
-      "High-Availability & Disaster Recovery Planning",
-      "24/7 Operations & Infrastructure Management"
-    ]}
-  />
-);
+function EnterpriseITPage({ navigateTo }) {
+  return (
+    <SubpageLayout
+      navigateTo={navigateTo}
+      title="Enterprise IT Solutions & Cloud Consulting Services"
+      description="Modernize legacy systems and migrate critical workloads to AWS GovCloud and Azure. We architect scalable solutions designed to reduce infrastructure maintenance costs."
+      content={
+        <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+          <p>At Delta3Tek, LLC, we understand the critical nature of government IT modernization. Relying on outdated, monolithic legacy systems presents significant security vulnerabilities and operational bottlenecks. We engineer seamless transitions to modern, scalable cloud environments.</p>
+          <p>Our cloud architects possess extensive experience in designing multi-cloud and hybrid environments (AWS, Azure, Google Cloud Platform) that strictly adhere to FedRAMP compliance requirements. By implementing Infrastructure as Code (IaC), we ensure your deployments are repeatable, secure, and easily auditable.</p>
+        </div>
+      }
+      features={[
+        "Secure Cloud Migrations (AWS GovCloud, Azure)",
+        "Legacy System Modernization & Refactoring",
+        "Infrastructure as Code (IaC) with Terraform",
+        "FedRAMP & DISA IL4/IL5 Compliant Architectures",
+        "High-Availability & Disaster Recovery Planning",
+        "24/7 Operations & Infrastructure Management"
+      ]}
+    />
+  );
+}
 
-const CybersecurityPage = ({ navigateTo }) => (
-  <SubpageLayout
-    navigateTo={navigateTo}
-    title="Cybersecurity Consulting Services & RMF"
-    description="Implement robust Zero Trust Architectures strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework process to accelerate ATO."
-    content={
-      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>Securing federal data against evolving threat landscapes is our paramount objective. Delta3Tek, LLC approaches cybersecurity not just as a compliance checklist, but as a foundational element built into every layer of your IT enterprise.</p>
-        <p>We specialize in migrating agencies from perimeter-based security to a modern Zero Trust Architecture (ZTA). Our certified security professionals (CISSP) provide expert <strong className="font-semibold text-slate-800">government IT consulting</strong>, navigating the NIST Risk Management Framework (RMF) to ensure your systems achieve and maintain their Authority to Operate (ATO) without stifling operational efficiency.</p>
-      </div>
-    }
-    features={[
-      "Zero Trust Architecture (ZTA) Implementation",
-      "NIST 800-53 RMF & ATO Support",
-      "CMMC Readiness & Compliance Consulting",
-      "Vulnerability Assessments & Penetration Testing",
-      "Continuous Monitoring & Threat Hunting",
-      "Identity, Credential, and Access Management (ICAM)"
-    ]}
-  />
-);
+function CybersecurityPage({ navigateTo }) {
+  return (
+    <SubpageLayout
+      navigateTo={navigateTo}
+      title="Cybersecurity Consulting Services & RMF"
+      description="Implement robust Zero Trust Architectures strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework process to accelerate ATO."
+      content={
+        <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+          <p>Securing federal data against evolving threat landscapes is our paramount objective. Delta3Tek, LLC approaches cybersecurity not just as a compliance checklist, but as a foundational element built into every layer of your IT enterprise.</p>
+          <p>We specialize in migrating agencies from perimeter-based security to a modern Zero Trust Architecture (ZTA). Our certified security professionals (CISSP) provide expert <strong className="font-semibold text-slate-800">government IT consulting</strong>, navigating the NIST Risk Management Framework (RMF) to ensure your systems achieve and maintain their Authority to Operate (ATO) without stifling operational efficiency.</p>
+        </div>
+      }
+      features={[
+        "Zero Trust Architecture (ZTA) Implementation",
+        "NIST 800-53 RMF & ATO Support",
+        "CMMC Readiness & Compliance Consulting",
+        "Vulnerability Assessments & Penetration Testing",
+        "Continuous Monitoring & Threat Hunting",
+        "Identity, Credential, and Access Management (ICAM)"
+      ]}
+    />
+  );
+}
 
-const DevSecOpsPage = ({ navigateTo }) => (
-  <SubpageLayout
-    navigateTo={navigateTo}
-    title="DevSecOps Integration"
-    description="Bake security directly into the software lifecycle. We automate CI/CD pipelines to help federal development teams reduce deployment cycles by 40%."
-    content={
-      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>Traditional software development methodologies often treat security as an afterthought, leading to delayed deployments and increased vulnerabilities. Delta3Tek, LLC implements a "Shift-Left" paradigm, embedding automated security controls directly into your CI/CD pipelines.</p>
-        <p>Our DevSecOps engineers build highly automated, containerized environments using Docker and Kubernetes. We facilitate agile transformations that break down silos between development, security, and operations teams, enabling your agency to release secure, high-quality software at mission speed.</p>
-      </div>
-    }
-    features={[
-      "CI/CD Pipeline Architecture & Automation",
-      "Automated Security Testing (SAST/DAST)",
-      "Containerization & Orchestration (Kubernetes)",
-      "Agile & SAFe Methodology Transformations",
-      "Microservices Architecture Design",
-      "Continuous Deployment & Release Management"
-    ]}
-  />
-);
+function DevSecOpsPage({ navigateTo }) {
+  return (
+    <SubpageLayout
+      navigateTo={navigateTo}
+      title="DevSecOps Integration"
+      description="Bake security directly into the software lifecycle. We automate CI/CD pipelines to help federal development teams reduce deployment cycles by 40%."
+      content={
+        <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+          <p>Traditional software development methodologies often treat security as an afterthought, leading to delayed deployments and increased vulnerabilities. Delta3Tek, LLC implements a "Shift-Left" paradigm, embedding automated security controls directly into your CI/CD pipelines.</p>
+          <p>Our DevSecOps engineers build highly automated, containerized environments using Docker and Kubernetes. We facilitate agile transformations that break down silos between development, security, and operations teams, enabling your agency to release secure, high-quality software at mission speed.</p>
+        </div>
+      }
+      features={[
+        "CI/CD Pipeline Architecture & Automation",
+        "Automated Security Testing (SAST/DAST)",
+        "Containerization & Orchestration (Kubernetes)",
+        "Agile & SAFe Methodology Transformations",
+        "Microservices Architecture Design",
+        "Continuous Deployment & Release Management"
+      ]}
+    />
+  );
+}
 
-const DataAnalyticsPage = ({ navigateTo }) => (
-  <SubpageLayout
-    navigateTo={navigateTo}
-    title="Data Analytics & AI"
-    description="Transform siloed agency data into actionable intelligence. We deploy applied AI models that improve reporting accuracy and drive predictive decision-making."
-    content={
-      <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
-        <p>Federal agencies collect massive volumes of data, but extracting meaningful insights remains a persistent challenge. Delta3Tek, LLC builds robust data pipelines and enterprise data warehouses that break down silos, ensuring your data is clean, accessible, and ready for analysis.</p>
-        <p>By leveraging applied Artificial Intelligence and Machine Learning, we transition organizations from descriptive reporting to predictive and prescriptive analytics. Our custom dashboarding solutions provide leadership with real-time visibility to make data-driven decisions that directly impact mission outcomes.</p>
-      </div>
-    }
-    features={[
-      "Enterprise Data Warehousing & Data Lakes",
-      "Predictive Analytics & Machine Learning Models",
-      "Natural Language Processing (NLP) Solutions",
-      "ETL/ELT Pipeline Development",
-      "Interactive Business Intelligence (BI) Dashboards",
-      "Data Governance & Quality Management"
-    ]}
-  />
-);
+function DataAnalyticsPage({ navigateTo }) {
+  return (
+    <SubpageLayout
+      navigateTo={navigateTo}
+      title="Data Analytics & AI"
+      description="Transform siloed agency data into actionable intelligence. We deploy applied AI models that improve reporting accuracy and drive predictive decision-making."
+      content={
+        <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
+          <p>Federal agencies collect massive volumes of data, but extracting meaningful insights remains a persistent challenge. Delta3Tek, LLC builds robust data pipelines and enterprise data warehouses that break down silos, ensuring your data is clean, accessible, and ready for analysis.</p>
+          <p>By leveraging applied Artificial Intelligence and Machine Learning, we transition organizations from descriptive reporting to predictive and prescriptive analytics. Our custom dashboarding solutions provide leadership with real-time visibility to make data-driven decisions that directly impact mission outcomes.</p>
+        </div>
+      }
+      features={[
+        "Enterprise Data Warehousing & Data Lakes",
+        "Predictive Analytics & Machine Learning Models",
+        "Natural Language Processing (NLP) Solutions",
+        "ETL/ELT Pipeline Development",
+        "Interactive Business Intelligence (BI) Dashboards",
+        "Data Governance & Quality Management"
+      ]}
+    />
+  );
+}
 
 /* =========================================
    LEGAL, COMPLIANCE & CAREERS PAGES
    ========================================= */
 
-const LegalPageLayout = ({ title, description, content, navigateTo }) => (
-  <div className="bg-[#F8FAFC] min-h-screen pb-24">
-    <PageHeader title={title} description={description} navigateTo={navigateTo} />
-    <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
-      <div className="bg-white p-8 md:p-16 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-        <div className="space-y-10 text-slate-600 leading-relaxed font-light">
-          {content}
-        </div>
-      </div>
-    </section>
-  </div>
-);
-
-const PrivacyPolicyPage = ({ navigateTo }) => (
-  <LegalPageLayout
-    navigateTo={navigateTo}
-    title="Privacy Policy"
-    description="How we collect, use, and protect your information."
-    content={
-      <>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">1. Information Collection</h3>
-          <p>We collect information you provide directly to us when you request information, submit a form, or communicate with us. This may include your name, email address, phone number, and any other details you choose to provide.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">2. Use of Information</h3>
-          <p>We use the information we collect to respond to your inquiries, provide federal contracting capabilities briefings, improve our website, and comply with legal obligations.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">3. Data Security</h3>
-          <p>We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. We adhere to industry best practices and federal compliance guidelines for data protection.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">4. Third-Party Disclosure</h3>
-          <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential.</p>
-        </div>
-      </>
-    }
-  />
-);
-
-const TermsOfUsePage = ({ navigateTo }) => (
-  <LegalPageLayout
-    navigateTo={navigateTo}
-    title="Terms of Use"
-    description="The rules and guidelines for using the Delta3Tek, LLC corporate website."
-    content={
-      <>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">1. Acceptance of Terms</h3>
-          <p>By accessing and using this website, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this service.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">2. Intellectual Property</h3>
-          <p>The site and its original content, features, and functionality are owned by Delta3Tek, LLC and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">3. Use of Site Content</h3>
-          <p>The content provided on this website is for informational purposes related to federal IT contracting. You may view, download, and print capability statements and public materials for evaluation purposes. Unauthorized reproduction or commercial distribution is prohibited.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">4. Disclaimer of Warranties</h3>
-          <p>While we strive to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.</p>
-        </div>
-      </>
-    }
-  />
-);
-
-const AccessibilityPage = ({ navigateTo }) => (
-  <LegalPageLayout
-    navigateTo={navigateTo}
-    title="Section 508 Accessibility"
-    description="Our commitment to digital accessibility for all users."
-    content={
-      <>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Commitment to Accessibility</h3>
-          <p>Delta3Tek, LLC is committed to making its electronic and information technologies accessible to individuals with disabilities in compliance with Section 508 of the Rehabilitation Act (29 U.S.C. 794d), as amended in 1998.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Standards & Compliance</h3>
-          <p>We continuously test and modify our website to ensure it meets or exceeds the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards. This includes ensuring compatibility with screen readers, providing keyboard navigation, and maintaining proper color contrast ratios.</p>
-        </div>
-        <div>
-          <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Reporting Accessibility Issues</h3>
-          <p>If you encounter any difficulty accessing the information on this site, or if you need information provided in an alternative format, please contact us immediately at <strong className="text-[#1e3a8a] font-bold">info@delta3tek.com</strong>. Please include the web address (URL) of the page you are having issues with and your contact information so we can assist you.</p>
-        </div>
-      </>
-    }
-  />
-);
-
-const CareersPage = ({ navigateTo }) => (
-  <LegalPageLayout
-    navigateTo={navigateTo}
-    title="Working at Delta3Tek"
-    description="Join our team to solve complex, mission-critical challenges through innovative technology solutions."
-    content={
-      <>
-        <div>
-          <FadeInView delay={0}>
-            <p className="mb-6 text-lg">At Delta3Tek, LLC, we tackle complex, mission-critical challenges for federal agencies by delivering secure, innovative technology solutions. Our work spans cloud modernization, cybersecurity, and DevSecOps—supporting high-impact systems that demand exceptional performance, resilience, and compliance.</p>
-          </FadeInView>
-          
-          <FadeInView delay={150}>
-            <p className="mb-6 text-lg">We believe great outcomes start with great people. Our culture is built on collaboration, continuous learning, and technical excellence. We empower our teams to think critically, innovate with confidence, and contribute to meaningful work that directly supports national missions.</p>
-          </FadeInView>
-          
-          <FadeInView delay={300}>
-            <p className="mb-6 text-lg">As a trusted provider of IT staffing and talent solutions, we offer rewarding opportunities for experienced professionals to work on cutting-edge technologies and high-visibility federal programs. Many of our roles support secure environments and require active federal security clearances (such as Public Trust, Secret or Top Secret). We actively seek cleared professionals as well as candidates eligible to obtain a clearance who are ready to contribute to mission-critical initiatives.</p>
-          </FadeInView>
-          
-          <FadeInView delay={450}>
-            <p className="mb-6 text-lg">We are committed to your growth—providing the tools, mentorship, and experiences needed to expand your skills and advance your career, including opportunities to work within cleared programs and specialized federal environments.</p>
-          </FadeInView>
-          
-          <FadeInView delay={600}>
-            <p className="mb-8 text-lg">We’re looking for driven individuals who thrive in fast-paced environments, embrace innovation, and are passionate about making an impact. If you enjoy solving complex problems, building modern solutions, and contributing to mission-driven work, Delta3Tek is where you can grow, serve, and make a difference.</p>
-          </FadeInView>
-        </div>
-        
-        <FadeInView delay={750}>
-          <div className="bg-slate-50 border border-slate-200 p-8 rounded-xl text-center">
-            <h3 className="text-2xl font-extrabold text-[#1e3a8a] mb-4">Ready to Make an Impact?</h3>
-            <p className="text-lg text-slate-600 mb-6">Explore our current opportunities or submit your resume directly to our recruiting team.</p>
-            <a href="mailto:careers@delta3tek.com" className="inline-flex items-center justify-center bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-4 rounded-xl font-bold transition-colors text-sm shadow-md">
-              <Mail size={16} className="mr-2" /> Submit Resume to careers@delta3tek.com
-            </a>
+function LegalPageLayout({ title, description, content, navigateTo }) {
+  return (
+    <div className="bg-[#F8FAFC] min-h-screen pb-24">
+      <PageHeader title={title} description={description} navigateTo={navigateTo} />
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+        <div className="bg-white p-8 md:p-16 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+          <div className="space-y-10 text-slate-600 leading-relaxed font-light">
+            {content}
           </div>
-        </FadeInView>
-      </>
-    }
-  />
-);
+        </div>
+      </section>
+    </div>
+  );
+}
 
-const ContactPage = ({ navigateTo }) => {
+function PrivacyPolicyPage({ navigateTo }) {
+  return (
+    <LegalPageLayout
+      navigateTo={navigateTo}
+      title="Privacy Policy"
+      description="How we collect, use, and protect your information."
+      content={
+        <>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">1. Information Collection</h3>
+            <p>We collect information you provide directly to us when you request information, submit a form, or communicate with us. This may include your name, email address, phone number, and any other details you choose to provide.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">2. Use of Information</h3>
+            <p>We use the information we collect to respond to your inquiries, provide federal contracting capabilities briefings, improve our website, and comply with legal obligations.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">3. Data Security</h3>
+            <p>We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. We adhere to industry best practices and federal compliance guidelines for data protection.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">4. Third-Party Disclosure</h3>
+            <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential.</p>
+          </div>
+        </>
+      }
+    />
+  );
+}
+
+function TermsOfUsePage({ navigateTo }) {
+  return (
+    <LegalPageLayout
+      navigateTo={navigateTo}
+      title="Terms of Use"
+      description="The rules and guidelines for using the Delta3Tek, LLC corporate website."
+      content={
+        <>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">1. Acceptance of Terms</h3>
+            <p>By accessing and using this website, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this service.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">2. Intellectual Property</h3>
+            <p>The site and its original content, features, and functionality are owned by Delta3Tek, LLC and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">3. Use of Site Content</h3>
+            <p>The content provided on this website is for informational purposes related to federal IT contracting. You may view, download, and print capability statements and public materials for evaluation purposes. Unauthorized reproduction or commercial distribution is prohibited.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">4. Disclaimer of Warranties</h3>
+            <p>While we strive to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose.</p>
+          </div>
+        </>
+      }
+    />
+  );
+}
+
+function AccessibilityPage({ navigateTo }) {
+  return (
+    <LegalPageLayout
+      navigateTo={navigateTo}
+      title="Section 508 Accessibility"
+      description="Our commitment to digital accessibility for all users."
+      content={
+        <>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Commitment to Accessibility</h3>
+            <p>Delta3Tek, LLC is committed to making its electronic and information technologies accessible to individuals with disabilities in compliance with Section 508 of the Rehabilitation Act (29 U.S.C. 794d), as amended in 1998.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Standards & Compliance</h3>
+            <p>We continuously test and modify our website to ensure it meets or exceeds the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards. This includes ensuring compatibility with screen readers, providing keyboard navigation, and maintaining proper color contrast ratios.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold text-[#1e3a8a] mb-4">Reporting Accessibility Issues</h3>
+            <p>If you encounter any difficulty accessing the information on this site, or if you need information provided in an alternative format, please contact us immediately at <strong className="text-[#1e3a8a] font-bold">info@delta3tek.com</strong>. Please include the web address (URL) of the page you are having issues with and your contact information so we can assist you.</p>
+          </div>
+        </>
+      }
+    />
+  );
+}
+
+function CareersPage({ navigateTo }) {
   const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+  const [resumeMethod, setResumeMethod] = useState('link'); // 'link' | 'paste'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmissionStatus('submitting');
+    setErrorMessage('');
     
-    const formData = new FormData(e.target);
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    // Add specific subject for the Formspree email
+    formData.append('_subject', `New Job Application: ${formData.get('name')} - ${formData.get('position')}`);
 
     try {
       const response = await fetch("https://formspree.io/f/mqenadqj", {
@@ -1446,10 +1441,245 @@ const ContactPage = ({ navigateTo }) => {
 
       if (response.ok) {
         setSubmissionStatus('success');
+        form.reset();
       } else {
+        let errorText = "There was an issue submitting your application. Please verify your connection or email us directly at careers@delta3tek.com.";
+        try {
+          const data = await response.json();
+          if (data.errors && data.errors.length > 0) {
+            errorText = data.errors.map(err => err.message).join(", ");
+          } else if (data.error) {
+            errorText = data.error;
+          }
+        } catch (parseErr) {
+          console.error("Error parsing response", parseErr);
+        }
+        setErrorMessage(errorText);
         setSubmissionStatus('error');
       }
     } catch (err) {
+      setErrorMessage("There was an issue submitting your application. Please verify your connection or email us directly at careers@delta3tek.com.");
+      setSubmissionStatus('error');
+    }
+  };
+
+  return (
+    <div className="bg-[#F8FAFC] min-h-screen pb-24">
+      <PageHeader 
+        title="Careers at Delta3Tek" 
+        description="Join our team to solve complex, mission-critical challenges through innovative technology solutions." 
+        navigateTo={navigateTo} 
+      />
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+        
+        {/* Intro Section */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          <FadeInView delay={0} className="h-full">
+            <div className="bg-white p-10 md:p-14 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 h-full flex flex-col justify-center">
+              <h2 className="text-3xl font-extrabold text-[#0B1F3B] mb-6 tracking-tight">Mission-Driven Innovation</h2>
+              <p className="text-slate-600 text-lg leading-relaxed font-light mb-4">
+                At Delta3Tek, LLC, we tackle complex, mission-critical challenges for federal agencies by delivering secure, innovative technology solutions. Our work spans cloud modernization, cybersecurity, and DevSecOps—supporting high-impact systems that demand exceptional performance, resilience, and compliance.
+              </p>
+              <p className="text-slate-600 text-lg leading-relaxed font-light">
+                We believe great outcomes start with great people. Our culture is built on collaboration, continuous learning, and technical excellence. We empower our teams to think critically, innovate with confidence, and contribute to meaningful work that directly supports national missions.
+              </p>
+            </div>
+          </FadeInView>
+
+          <FadeInView delay={150} className="h-full">
+            <div className="bg-slate-900 text-white p-10 md:p-14 rounded-3xl shadow-xl border border-slate-800 h-full flex flex-col justify-center">
+              <ShieldCheck className="w-12 h-12 text-[#b48c5a] mb-6" />
+              <h2 className="text-3xl font-extrabold text-[#b48c5a] mb-6 tracking-tight">Cleared Professionals</h2>
+              <p className="text-slate-300 text-lg leading-relaxed font-light mb-4">
+                As a trusted provider of IT staffing and talent solutions, we offer rewarding opportunities for experienced professionals to work on cutting-edge technologies and high-visibility federal programs.
+              </p>
+              <p className="text-slate-300 text-lg leading-relaxed font-light">
+                Many of our roles support secure environments and require active federal security clearances. We actively seek cleared professionals, as well as candidates eligible to obtain a clearance, who are ready to contribute to mission-critical initiatives.
+              </p>
+            </div>
+          </FadeInView>
+        </div>
+
+        {/* Values Grid */}
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
+          <FadeInView delay={300} className="h-full">
+            <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 h-full flex flex-col items-center text-center">
+              <div className="bg-amber-50 p-4 rounded-full mb-6">
+                <TrendingUp className="text-[#b48c5a] w-8 h-8" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Commitment to Growth</h3>
+              <p className="text-slate-600 leading-relaxed font-light">
+                We are committed to your growth—providing the tools, mentorship, and experiences needed to expand your skills and advance your career, including opportunities to work within cleared programs and specialized federal environments.
+              </p>
+            </div>
+          </FadeInView>
+
+          <FadeInView delay={450} className="h-full">
+            <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 h-full flex flex-col items-center text-center">
+              <div className="bg-blue-50 p-4 rounded-full mb-6">
+                <Lightbulb className="text-[#1e3a8a] w-8 h-8" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">High-Impact Work</h3>
+              <p className="text-slate-600 leading-relaxed font-light">
+                We’re looking for driven individuals who thrive in fast-paced environments, embrace innovation, and are passionate about making an impact. If you enjoy solving complex problems, Delta3Tek is where you can grow, serve, and make a difference.
+              </p>
+            </div>
+          </FadeInView>
+        </div>
+
+        {/* CTA Application Form */}
+        <FadeInView delay={600}>
+          <div className="bg-[#1e3a8a] p-10 md:p-14 rounded-3xl shadow-xl relative overflow-hidden border border-blue-900/50">
+            {/* Background accent */}
+            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div className="relative z-10 max-w-4xl mx-auto">
+              {submissionStatus === 'success' ? (
+                <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-10 rounded-2xl text-center">
+                  <div className="bg-green-500/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="text-green-400 w-10 h-10" />
+                  </div>
+                  <h3 className="text-3xl font-extrabold text-white mb-3">Application Received!</h3>
+                  <p className="text-blue-100 text-lg font-light mb-8 max-w-2xl mx-auto">
+                    Thank you for your interest in Delta3Tek. Our recruiting team has successfully received your details and resume. We will review your application and be in touch soon.
+                  </p>
+                  <button 
+                    onClick={() => setSubmissionStatus('idle')} 
+                    className="bg-white text-[#1e3a8a] px-8 py-3.5 rounded-xl font-bold hover:bg-gray-100 transition-colors shadow-lg"
+                  >
+                    Submit Another Application
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="text-center md:text-left mb-10 border-b border-white/10 pb-8">
+                    <h2 className="text-3xl font-extrabold text-white mb-3">Ready to Make an Impact?</h2>
+                    <p className="text-blue-100 text-lg font-light">Submit your details and resume below to apply directly to our recruiting team.</p>
+                  </div>
+
+                  {submissionStatus === 'error' && (
+                    <div className="mb-8 p-4 bg-red-500/20 border border-red-500/50 text-white rounded-xl flex items-center">
+                      <AlertCircle size={20} className="mr-3 flex-shrink-0 text-red-400" />
+                      <p className="text-sm">{errorMessage}</p>
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-8">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-bold text-blue-100 mb-2">Full Name <span className="text-red-400">*</span></label>
+                        <input type="text" id="name" name="name" required className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder-blue-200/50 focus:outline-none focus:border-[#b48c5a] focus:bg-white/20 transition-all" placeholder="John Doe" />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-bold text-blue-100 mb-2">Email Address <span className="text-red-400">*</span></label>
+                        <input type="email" id="email" name="email" required className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder-blue-200/50 focus:outline-none focus:border-[#b48c5a] focus:bg-white/20 transition-all" placeholder="john@example.com" />
+                      </div>
+                      <div>
+                        <label htmlFor="phone" className="block text-sm font-bold text-blue-100 mb-2">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder-blue-200/50 focus:outline-none focus:border-[#b48c5a] focus:bg-white/20 transition-all" placeholder="(555) 123-4567" />
+                      </div>
+                      <div>
+                        <label htmlFor="position" className="block text-sm font-bold text-blue-100 mb-2">Position of Interest <span className="text-red-400">*</span></label>
+                        <input type="text" id="position" name="position" required className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder-blue-200/50 focus:outline-none focus:border-[#b48c5a] focus:bg-white/20 transition-all" placeholder="e.g., Cloud Architect" />
+                      </div>
+                    </div>
+                    
+                    <div className="bg-slate-900/40 p-6 md:p-8 rounded-2xl border border-white/5">
+                      <label className="block text-sm font-bold text-white mb-4">Resume Submission <span className="text-red-400">*</span></label>
+                      <div className="flex flex-wrap gap-6 mb-6">
+                        <label className="flex items-center text-blue-100 text-sm cursor-pointer hover:text-white transition-colors">
+                          <input type="radio" name="resumeMethod" value="link" checked={resumeMethod === 'link'} onChange={() => setResumeMethod('link')} className="mr-2 w-4 h-4 accent-[#b48c5a]" /> 
+                          Provide Link (LinkedIn/Drive)
+                        </label>
+                        <label className="flex items-center text-blue-100 text-sm cursor-pointer hover:text-white transition-colors">
+                          <input type="radio" name="resumeMethod" value="paste" checked={resumeMethod === 'paste'} onChange={() => setResumeMethod('paste')} className="mr-2 w-4 h-4 accent-[#b48c5a]" /> 
+                          Paste Text
+                        </label>
+                      </div>
+                      
+                      {resumeMethod === 'link' ? (
+                        <div className="animate-in fade-in duration-300">
+                          <input type="url" name="resumeLink" required className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder-blue-200/50 focus:outline-none focus:border-[#b48c5a] focus:bg-white/20 transition-all" placeholder="https://linkedin.com/in/yourprofile or Google Drive link" />
+                          <p className="text-xs text-blue-200/60 mt-3 font-light flex items-center gap-1.5"><Info size={12}/> Ensure your Drive/Dropbox link is set to "Anyone with link can view".</p>
+                        </div>
+                      ) : (
+                        <div className="animate-in fade-in duration-300">
+                          <textarea name="resumeText" required rows="8" className="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-4 text-white placeholder-blue-200/50 focus:outline-none focus:border-[#b48c5a] focus:bg-white/20 resize-y transition-all" placeholder="Paste your resume content or cover letter here..."></textarea>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+                      <p className="text-sm text-blue-200/80 font-light">
+                        Prefer to send a PDF? <span className="text-[#b48c5a] font-medium">Email us at career@delta3tek.com</span>.
+                      </p>
+                      <button 
+                        type="submit" 
+                        disabled={submissionStatus === 'submitting'}
+                        className="inline-flex items-center justify-center w-full md:w-auto bg-[#b48c5a] hover:bg-white text-white hover:text-[#1e3a8a] px-10 py-4 rounded-xl font-extrabold transition-all text-sm shadow-[0_0_15px_rgba(180,140,90,0.4)] hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed min-w-[220px]"
+                      >
+                        {submissionStatus === 'submitting' ? (
+                          <>
+                            <Loader2 size={18} className="mr-2 animate-spin" /> Submitting...
+                          </>
+                        ) : (
+                          <>
+                            <Send size={18} className="mr-2" /> Submit Application
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                </>
+              )}
+            </div>
+          </div>
+        </FadeInView>
+
+      </section>
+    </div>
+  );
+}
+
+function ContactPage({ navigateTo }) {
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmissionStatus('submitting');
+    setErrorMessage('');
+    
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mqenadqj", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+        form.reset();
+      } else {
+        let errorText = "There was an issue sending your message. Please try again or email us directly.";
+        try {
+          const data = await response.json();
+          if (data.errors && data.errors.length > 0) {
+            errorText = data.errors.map(err => err.message).join(", ");
+          } else if (data.error) {
+            errorText = data.error;
+          }
+        } catch (parseErr) {}
+        setErrorMessage(errorText);
+        setSubmissionStatus('error');
+      }
+    } catch (err) {
+      setErrorMessage("There was an issue sending your message. Please try again or email us directly.");
       setSubmissionStatus('error');
     }
   };
@@ -1492,11 +1722,195 @@ const ContactPage = ({ navigateTo }) => {
             {submissionStatus === 'error' && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center">
                 <AlertCircle size={18} className="mr-2 flex-shrink-0" />
-                <p className="text-sm">There was an issue sending your message. Please try again or email us directly.</p>
+                <p className="text-sm">{errorMessage}</p>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-bold text-[#0B1F3B] mb-2">Full Name <span className="text-red-500">*</span></label>
+                  <input type="text" id="name" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="Jane Doe" />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-bold text-[#0B1F3B] mb-2">Email Address <span className="text-red-500">*</span></label>
+                  <input type="email" id="email" name="email" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="jane@agency.gov" />
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="organization" className="block text-sm font-bold text-[#0B1F3B] mb-2">Organization / Agency</label>
+                <input type="text" id="organization" name="organization" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="e.g. Department of Defense" />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-bold text-[#0B1F3B] mb-2">How can we help you? <span className="text-red-500">*</span></label>
+                <textarea id="message" name="message" required rows="5" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors resize-none" placeholder="Please describe your inquiry..."></textarea>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={submissionStatus === 'submitting'}
+                className="inline-flex items-center justify-center w-full sm:w-auto bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-3.5 rounded-xl font-bold transition-colors text-sm shadow-md disabled:opacity-70 disabled:cursor-not-allowed min-w-[160px]"
+              >
+                {submissionStatus === 'submitting' ? (
+                  <>
+                    <Loader2 size={18} className="mr-2 animate-spin" /> Processing...
+                  </>
+                ) : (
+                  <>
+                    <Send size={16} className="mr-2" /> Send Message
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+
+          {/* Contact Information Sidebar */}
+          <div className="lg:col-span-4 space-y-8 sticky top-32">
+            
+            <div className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+              <h3 className="text-sm font-bold text-[#0B1F3B] mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">Corporate Office</h3>
+              <div className="space-y-6">
+                <div className="flex items-start">
+                  <div className="bg-slate-50 p-3 rounded-lg mr-4 text-[#b48c5a]">
+                    <Building2 size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-[#0B1F3B] text-sm mb-1">Headquarters</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">Northern Virginia / Washington DC Metro</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="bg-slate-50 p-3 rounded-lg mr-4 text-[#b48c5a]">
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-[#0B1F3B] text-sm mb-1">General Inquiries</h4>
+                    <span className="text-slate-600 text-sm">info@delta3tek.com</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#0B1F3B] p-8 rounded-2xl shadow-lg border border-[#1e3a8a] text-white">
+              <h3 className="text-xl font-extrabold mb-3">Join Our Team</h3>
+              <p className="text-slate-300 text-sm leading-relaxed mb-6 font-light">We are actively recruiting cleared personnel for upcoming federal projects.</p>
+              <button onClick={() => navigateTo('careers')} className="inline-flex items-center text-[#b48c5a] font-bold text-sm tracking-wide uppercase group hover:text-white transition-colors">
+                View Careers <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function PartneringPage({ navigateTo }) {
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmissionStatus('submitting');
+    setErrorMessage('');
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/mqenadqj", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+        form.reset();
+      } else {
+        let errorText = "There was an issue submitting your request. Please try again later.";
+        try {
+          const data = await response.json();
+          if (data.errors && data.errors.length > 0) {
+            errorText = data.errors.map(err => err.message).join(", ");
+          } else if (data.error) {
+            errorText = data.error;
+          }
+        } catch (parseErr) {}
+        setErrorMessage(errorText);
+        setSubmissionStatus('error');
+      }
+    } catch (err) {
+      setErrorMessage("There was an issue submitting your request. Please try again later.");
+      setSubmissionStatus('error');
+    }
+  };
+
+  if (submissionStatus === 'success') {
+    return (
+      <div className="bg-[#F8FAFC] min-h-screen pb-24 flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white p-12 rounded-3xl shadow-2xl text-center border border-slate-100">
+          <div className="bg-amber-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8">
+            <ShieldCheck className="text-[#b48c5a] w-10 h-10" />
+          </div>
+          <h2 className="text-3xl font-extrabold text-slate-900 mb-4">Request Submitted</h2>
+          <p className="text-slate-600 mb-10 leading-relaxed font-light">
+            Thank you for contacting Delta3Tek, LLC. Your inquiry has been received by our Team.<br /><br />
+            We appreciate your interest and will follow up promptly.
+          </p>
+          <button onClick={() => navigateTo('home')} className="w-full bg-[#1e3a8a] text-white py-4 rounded-xl font-bold hover:bg-slate-900 transition-colors shadow-lg">
+            Return to Homepage
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#F8FAFC] min-h-screen pb-24">
+      <PageHeader 
+        title="Teaming & Partnerships" 
+        description="We actively seek strategic partnerships with large primes, specialized small businesses, and technology vendors to deliver comprehensive federal solutions." 
+        navigateTo={navigateTo} 
+      />
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Partnering Form */}
+          <div className="lg:col-span-8 bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+            <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-2 tracking-tight">Partner With Us</h2>
+            <p className="text-slate-500 mb-8 font-light">Submit your corporate capabilities below to initiate a teaming discussion.</p>
+            
+            {submissionStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center">
+                <AlertCircle size={18} className="mr-2 flex-shrink-0" />
+                <p className="text-sm">{errorMessage}</p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-bold text-[#0B1F3B] mb-2">Point of Contact <span className="text-red-500">*</span></label>
+                  <input type="text" id="name" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="John Doe" />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-bold text-[#0B1F3B] mb-2">Email Address <span className="text-red-500">*</span></label>
+                  <input type="email" id="email" name="email" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="john@company.com" />
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="company" className="block text-sm font-bold text-[#0B1F3B] mb-2">Company Name <span className="text-red-500">*</span></label>
+                <input type="text" id="company" name="company" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="e.g. Acme Federal IT" />
+              </div>
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="website" className="block text-sm font-bold text-[#0B1F3B] mb-2">Company Website</label>
@@ -1568,9 +1982,9 @@ const ContactPage = ({ navigateTo }) => {
               <p className="text-slate-600 text-sm leading-relaxed mb-4">
                 Have an urgent RFP or Sources Sought you want to discuss? Reach out to our teaming coordinators directly.
               </p>
-              <a href="mailto:info@delta3tek.com" className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide group hover:text-[#b48c5a] transition-colors">
+              <span className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide">
                 <Mail size={16} className="mr-2" /> info@delta3tek.com
-              </a>
+              </span>
             </div>
 
           </div>
@@ -1578,4 +1992,4 @@ const ContactPage = ({ navigateTo }) => {
       </section>
     </div>
   );
-};
+}
