@@ -28,7 +28,17 @@ import {
   Target,
   Settings,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Cloud,
+  Shield,
+  Zap,
+  DollarSign,
+  TrendingUp,
+  Lightbulb,
+  Info,
+  Activity,
+  HeartPulse,
+  LayoutDashboard
 } from 'lucide-react';
 
 /* --- CUSTOM SVG LOGO COMPONENT --- */
@@ -52,6 +62,48 @@ const BrandLogo = ({ className }) => (
     </text>
   </svg>
 );
+
+/* --- ANIMATION WRAPPER COMPONENT --- */
+const FadeInView = ({ children, delay = 0, className = "", direction = "up" }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const domRef = React.useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (domRef.current) observer.unobserve(domRef.current);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    if (domRef.current) {
+      observer.observe(domRef.current);
+    }
+    
+    return () => {
+      if (domRef.current) observer.disconnect();
+    };
+  }, []);
+
+  let transformClass = 'translate-y-12 blur-[8px] scale-[0.98]'; // Premium up + blur + slight scale
+  if (direction === 'down') transformClass = '-translate-y-12 blur-[8px] scale-[0.98]';
+  if (direction === 'left') transformClass = '-translate-x-12 blur-[8px] scale-[0.98]';
+  if (direction === 'right') transformClass = 'translate-x-12 blur-[8px] scale-[0.98]';
+
+  return (
+    <div
+      ref={domRef}
+      className={`transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${className} ${
+        isVisible ? 'opacity-100 translate-y-0 translate-x-0 blur-none scale-100' : `opacity-0 ${transformClass}`
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -84,6 +136,10 @@ export default function App() {
       'capability-statement': {
         title: "Corporate Capability Statement | GSA Consulting Services | Delta3Tek",
         desc: "Review our past performance, core competencies, and IT staff augmentation services. Delta3Tek is a trusted federal consulting firm in the USA."
+      },
+      'case-study': {
+        title: "HHS Cloud Migration Case Study | Delta3Tek",
+        desc: "Read how Delta3Tek modernized IT infrastructure and executed a secure cloud migration for the U.S. Department of Health and Human Services (HHS)."
       },
       'careers': {
         title: "Careers | Talent Acquisition Services | Delta3Tek",
@@ -242,77 +298,95 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <div className="max-w-4xl mx-auto text-center">
                 
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-[#b48c5a]/30 text-[#b48c5a] text-xs font-bold uppercase tracking-widest mb-10 shadow-lg backdrop-blur-sm">
-                  <span className="w-2 h-2 rounded-full bg-[#b48c5a] animate-pulse"></span>
-                  Federal IT Solutions Partner
-                </div>
+                <FadeInView delay={100}>
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-[#b48c5a]/30 text-[#b48c5a] text-xs font-bold uppercase tracking-widest mb-10 shadow-lg backdrop-blur-sm">
+                    <span className="w-2 h-2 rounded-full bg-[#b48c5a] animate-pulse"></span>
+                    Federal IT Solutions Partner
+                  </div>
+                </FadeInView>
                 
-                <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] mb-8 tracking-tight">
-                  Azure Cloud, Cybersecurity, and DevSecOps Solutions for Federal Agencies
-                </h1>
+                <FadeInView delay={200}>
+                  <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] mb-8 tracking-tight">
+                    Azure Cloud, Cybersecurity, and DevSecOps Solutions for Federal Agencies
+                  </h1>
+                </FadeInView>
                 
-                <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
-                  Supporting mission-critical systems with secure, scalable, and compliant architectures. We modernize legacy infrastructure to accelerate federal missions.
-                </p>
+                <FadeInView delay={300}>
+                  <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
+                    Supporting mission-critical systems with secure, scalable, and compliant architectures. We modernize legacy infrastructure to accelerate federal missions.
+                  </p>
+                </FadeInView>
                 
-                <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                  <button onClick={() => navigateTo('capability-statement')} className="bg-[#1e3a8a] text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-all duration-300 text-center shadow-[0_0_20px_rgba(30,58,138,0.5)] hover:shadow-[0_0_30px_rgba(30,58,138,0.8)] hover:-translate-y-1 flex items-center justify-center gap-2 group">
-                    <FileText size={20} className="group-hover:scale-110 transition-transform"/>
-                    Capability Statement
-                  </button>
-                  <a href="#services" onClick={(e) => handleNavClick(e, 'home', 'services')} className="bg-slate-900/50 backdrop-blur-md border border-slate-500/50 text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-white hover:text-slate-900 hover:border-white transition-all duration-300 text-center flex items-center justify-center gap-2 group">
-                    Explore Services <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform"/>
-                  </a>
-                </div>
+                <FadeInView delay={400}>
+                  <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                    <button onClick={() => navigateTo('capability-statement')} className="bg-[#1e3a8a] text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-blue-800 transition-all duration-300 text-center shadow-[0_0_20px_rgba(30,58,138,0.5)] hover:shadow-[0_0_30px_rgba(30,58,138,0.8)] hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                      <FileText size={20} className="group-hover:scale-110 transition-transform"/>
+                      Capability Statement
+                    </button>
+                    <button onClick={() => navigateTo('case-study')} className="bg-slate-900/50 backdrop-blur-md border border-slate-500/50 text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-white hover:text-slate-900 hover:border-white transition-all duration-300 text-center flex items-center justify-center gap-2 group">
+                      Read Case Study <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform"/>
+                    </button>
+                  </div>
+                </FadeInView>
               </div>
             </div>
           </section>
 
           {/* Federal Credibility Strip (Visual & Trust Building) */}
           <section className="bg-white border-b border-gray-200 py-6 relative z-20 shadow-xl -mt-8 mx-4 sm:mx-6 lg:mx-8 rounded-xl max-w-7xl xl:mx-auto">
-            <div className="flex flex-wrap justify-center md:justify-around items-center gap-6 text-sm">
-              <div className="flex flex-col items-center">
-                <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Entity UEI</span>
-                <span className="text-slate-800 font-mono font-bold tracking-wider">[PENDING_UEI]</span>
+            <FadeInView delay={500}>
+              <div className="flex flex-wrap justify-center md:justify-around items-center gap-6 text-sm">
+                <div className="flex flex-col items-center">
+                  <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Clearance</span>
+                  <span className="text-slate-800 font-mono font-bold tracking-wider">Facility & Personnel</span>
+                </div>
+                <div className="hidden md:block w-px h-8 bg-gray-200"></div>
+                <div className="flex flex-col items-center">
+                  <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Compliance</span>
+                  <span className="text-slate-800 font-mono font-bold tracking-wider">NIST & FedRAMP</span>
+                </div>
+                <div className="hidden md:block w-px h-8 bg-gray-200"></div>
+                <div className="flex flex-col items-center">
+                  <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Top NAICS</span>
+                  <span className="text-[#1e3a8a] font-mono font-bold tracking-wider">541511, 541512, 541519</span>
+                </div>
+                <div className="hidden md:block w-px h-8 bg-gray-200"></div>
+                <div className="flex flex-col items-center">
+                  <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Designation</span>
+                  <span className="bg-amber-50 text-[#b48c5a] border border-[#b48c5a]/30 px-3 py-1 rounded text-xs font-extrabold uppercase tracking-widest shadow-sm">Small Business</span>
+                </div>
               </div>
-              <div className="hidden md:block w-px h-8 bg-gray-200"></div>
-              <div className="flex flex-col items-center">
-                <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">CAGE Code</span>
-                <span className="text-slate-800 font-mono font-bold tracking-wider">[PENDING]</span>
-              </div>
-              <div className="hidden md:block w-px h-8 bg-gray-200"></div>
-              <div className="flex flex-col items-center">
-                <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Top NAICS</span>
-                <span className="text-[#1e3a8a] font-mono font-bold tracking-wider">541511, 541512, 541519</span>
-              </div>
-              <div className="hidden md:block w-px h-8 bg-gray-200"></div>
-              <div className="flex flex-col items-center">
-                <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Designation</span>
-                <span className="bg-amber-50 text-[#b48c5a] border border-[#b48c5a]/30 px-3 py-1 rounded text-xs font-extrabold uppercase tracking-widest shadow-sm">Small Business</span>
-              </div>
-            </div>
+            </FadeInView>
           </section>
 
           {/* Visual Data / Stats Elements Section */}
           <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
-                <div className="p-4">
-                  <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">10<span className="text-[#b48c5a]">+</span></div>
-                  <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Years Experience</div>
-                </div>
-                <div className="p-4">
-                  <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">150<span className="text-[#b48c5a]">+</span></div>
-                  <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Cloud Migrations</div>
-                </div>
-                <div className="p-4">
-                  <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">100<span className="text-[#b48c5a]">%</span></div>
-                  <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">NIST Compliant</div>
-                </div>
-                <div className="p-4">
-                  <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">99.9<span className="text-[#b48c5a]">%</span></div>
-                  <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">System Uptime</div>
-                </div>
+                <FadeInView delay={0}>
+                  <div className="p-4">
+                    <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">10<span className="text-[#b48c5a]">+</span></div>
+                    <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Years Experience</div>
+                  </div>
+                </FadeInView>
+                <FadeInView delay={100}>
+                  <div className="p-4">
+                    <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">150<span className="text-[#b48c5a]">+</span></div>
+                    <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Cloud Migrations</div>
+                  </div>
+                </FadeInView>
+                <FadeInView delay={200}>
+                  <div className="p-4">
+                    <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">100<span className="text-[#b48c5a]">%</span></div>
+                    <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">NIST Compliant</div>
+                  </div>
+                </FadeInView>
+                <FadeInView delay={300}>
+                  <div className="p-4">
+                    <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">99.9<span className="text-[#b48c5a]">%</span></div>
+                    <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">System Uptime</div>
+                  </div>
+                </FadeInView>
               </div>
             </div>
           </section>
@@ -320,78 +394,88 @@ export default function App() {
           {/* Premium Core Capabilities (Card Style) */}
           <section id="services" className="py-32 bg-gray-50 border-t border-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-20 max-w-3xl mx-auto">
-                <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Core Competencies</span>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Enterprise IT Solutions Provider for the Federal Government</h2>
-                <p className="text-xl text-slate-600 leading-relaxed font-light">
-                  We don't just maintain systems; we optimize them. Our engineering teams provide government IT consulting deeply aligned with agency missions.
-                </p>
-              </div>
+              <FadeInView delay={0}>
+                <div className="text-center mb-20 max-w-3xl mx-auto">
+                  <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Core Competencies</span>
+                  <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Enterprise IT Solutions Provider for the Federal Government</h2>
+                  <p className="text-xl text-slate-600 leading-relaxed font-light">
+                    We don't just maintain systems; we optimize them. Our engineering teams provide government IT consulting deeply aligned with agency missions.
+                  </p>
+                </div>
+              </FadeInView>
 
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Card 1 */}
-                <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
-                      <Server className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                <FadeInView delay={100} className="h-full">
+                  <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col h-full">
+                    <div className="flex items-center mb-6">
+                      <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
+                        <Server className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                      </div>
+                      <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Cloud Consulting Services</h3>
                     </div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Cloud Consulting Services</h3>
+                    <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
+                      Modernize legacy systems and migrate critical workloads to <strong className="text-slate-900 font-semibold">AWS GovCloud and Azure</strong>. Our scalable cloud architectures are designed to <strong className="text-[#b48c5a] font-semibold">reduce infrastructure costs by up to 30%</strong> while guaranteeing 99.99% availability.
+                    </p>
+                    <button onClick={() => navigateTo('enterprise-it')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
+                      Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
-                    Modernize legacy systems and migrate critical workloads to <strong className="text-slate-900 font-semibold">AWS GovCloud and Azure</strong>. Our scalable cloud architectures are designed to <strong className="text-[#b48c5a] font-semibold">reduce infrastructure costs by up to 30%</strong> while guaranteeing 99.99% availability.
-                  </p>
-                  <button onClick={() => navigateTo('enterprise-it')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
-                    Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+                </FadeInView>
 
                 {/* Card 2 */}
-                <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
-                      <ShieldCheck className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                <FadeInView delay={200} className="h-full">
+                  <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col h-full">
+                    <div className="flex items-center mb-6">
+                      <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
+                        <ShieldCheck className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                      </div>
+                      <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Cybersecurity Consulting Services</h3>
                     </div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Cybersecurity Consulting Services</h3>
+                    <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
+                      Implement robust <strong className="text-slate-900 font-semibold">Zero Trust Architectures</strong> strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework (RMF) process to <strong className="text-[#b48c5a] font-semibold">accelerate ATO timelines</strong> without compromising security.
+                    </p>
+                    <button onClick={() => navigateTo('cybersecurity')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
+                      Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
-                    Implement robust <strong className="text-slate-900 font-semibold">Zero Trust Architectures</strong> strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework (RMF) process to <strong className="text-[#b48c5a] font-semibold">accelerate ATO timelines</strong> without compromising security.
-                  </p>
-                  <button onClick={() => navigateTo('cybersecurity')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
-                    Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+                </FadeInView>
 
                 {/* Card 3 */}
-                <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
-                      <Code className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                <FadeInView delay={300} className="h-full">
+                  <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col h-full">
+                    <div className="flex items-center mb-6">
+                      <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
+                        <Code className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                      </div>
+                      <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">DevSecOps Integration</h3>
                     </div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">DevSecOps Integration</h3>
+                    <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
+                      Bake security directly into the software lifecycle. By automating CI/CD pipelines and integrating SAST/DAST testing, we help federal development teams <strong className="text-[#b48c5a] font-semibold">reduce deployment cycles by 40%</strong> while eliminating critical vulnerabilities.
+                    </p>
+                    <button onClick={() => navigateTo('devsecops')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
+                      Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
-                    Bake security directly into the software lifecycle. By automating CI/CD pipelines and integrating SAST/DAST testing, we help federal development teams <strong className="text-[#b48c5a] font-semibold">reduce deployment cycles by 40%</strong> while eliminating critical vulnerabilities.
-                  </p>
-                  <button onClick={() => navigateTo('devsecops')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
-                    Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+                </FadeInView>
 
                 {/* Card 4 */}
-                <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
-                      <Database className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                <FadeInView delay={400} className="h-full">
+                  <div className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-[#b48c5a]/30 transition-all duration-300 group flex flex-col h-full">
+                    <div className="flex items-center mb-6">
+                      <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
+                        <Database className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
+                      </div>
+                      <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Data Analytics & AI</h3>
                     </div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Data Analytics & AI</h3>
+                    <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
+                      Transform siloed agency data into actionable intelligence. We architect enterprise data lakes and deploy applied AI/ML models that <strong className="text-[#b48c5a] font-semibold">improve reporting accuracy and drive predictive decision-making</strong> for mission leaders.
+                    </p>
+                    <button onClick={() => navigateTo('data-analytics')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
+                      Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
-                    Transform siloed agency data into actionable intelligence. We architect enterprise data lakes and deploy applied AI/ML models that <strong className="text-[#b48c5a] font-semibold">improve reporting accuracy and drive predictive decision-making</strong> for mission leaders.
-                  </p>
-                  <button onClick={() => navigateTo('data-analytics')} className="inline-flex items-center text-[#1e3a8a] font-bold text-sm tracking-wide uppercase group-hover:text-[#b48c5a] transition-colors w-max">
-                    Explore Capability <ArrowLeft size={16} className="ml-2 rotate-180 transform group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
+                </FadeInView>
               </div>
             </div>
           </section>
@@ -399,54 +483,64 @@ export default function App() {
           {/* Service Delivery Models (Engagement Models) */}
           <section id="service-delivery-models" className="py-24 bg-white border-t border-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16 max-w-3xl mx-auto">
-                <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Service Delivery Models</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Flexible Engagement Frameworks</h2>
-                <p className="text-xl text-slate-600 leading-relaxed font-light">
-                  Whether you need targeted expertise to bridge a capability gap or turnkey execution for a major modernization initiative, we provide adaptable delivery models.
-                </p>
-              </div>
+              <FadeInView delay={0}>
+                <div className="text-center mb-16 max-w-3xl mx-auto">
+                  <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Service Delivery Models</span>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 tracking-tight">Flexible Engagement Frameworks</h2>
+                  <p className="text-xl text-slate-600 leading-relaxed font-light">
+                    Whether you need targeted expertise to bridge a capability gap or turnkey execution for a major modernization initiative, we provide adaptable delivery models.
+                  </p>
+                </div>
+              </FadeInView>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
-                    <Users className="text-[#1e3a8a] w-6 h-6" />
+                <FadeInView delay={100} className="h-full">
+                  <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                    <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
+                      <Users className="text-[#1e3a8a] w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">IT Staff Augmentation Services</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Providing highly cleared, certified technical professionals (SMEs, engineers, developers) as your premier <strong className="font-semibold text-slate-800">technical staffing agency</strong>. We offer contract staffing solutions, talent acquisition services, and RPO for federal roles.
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">IT Staff Augmentation Services</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    Providing highly cleared, certified technical professionals (SMEs, engineers, developers) as your premier <strong className="font-semibold text-slate-800">technical staffing agency</strong>. We offer contract staffing solutions, talent acquisition services, and RPO for federal roles.
-                  </p>
-                </div>
+                </FadeInView>
 
-                <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
-                    <Monitor className="text-[#1e3a8a] w-6 h-6" />
+                <FadeInView delay={200} className="h-full">
+                  <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                    <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
+                      <Monitor className="text-[#1e3a8a] w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">Enterprise IT Solutions</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      End-to-end delivery of specialized technology solutions, from enterprise architecture design to full-scale cloud consulting services and zero-trust cybersecurity implementations.
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">Enterprise IT Solutions</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    End-to-end delivery of specialized technology solutions, from enterprise architecture design to full-scale cloud consulting services and zero-trust cybersecurity implementations.
-                  </p>
-                </div>
+                </FadeInView>
 
-                <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
-                    <Target className="text-[#1e3a8a] w-6 h-6" />
+                <FadeInView delay={300} className="h-full">
+                  <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                    <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
+                      <Target className="text-[#1e3a8a] w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">Project Services</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Milestone-driven project execution managed by PMP-certified leaders, ensuring complex IT modernization efforts are delivered on-time, within budget, and aligned with strict FAR requirements.
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">Project Services</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    Milestone-driven project execution managed by PMP-certified leaders, ensuring complex IT modernization efforts are delivered on-time, within budget, and aligned with strict FAR requirements.
-                  </p>
-                </div>
+                </FadeInView>
 
-                <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
-                    <Settings className="text-[#1e3a8a] w-6 h-6" />
+                <FadeInView delay={400} className="h-full">
+                  <div className="bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-[#b48c5a]/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                    <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
+                      <Settings className="text-[#1e3a8a] w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">Custom Solutions</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      Bespoke software engineering and systems integration tailored to unique agency challenges, leveraging agile methodologies and DevSecOps pipelines for rapid, secure deployment.
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">Custom Solutions</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    Bespoke software engineering and systems integration tailored to unique agency challenges, leveraging agile methodologies and DevSecOps pipelines for rapid, secure deployment.
-                  </p>
-                </div>
+                </FadeInView>
               </div>
             </div>
           </section>
@@ -454,64 +548,70 @@ export default function App() {
           {/* Premium Past Performance Section */}
           <section id="performance" className="py-32 bg-gray-50 border-t border-gray-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-20 max-w-3xl mx-auto">
-                <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Proven Results</span>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Past Performance Highlights</h2>
-                <p className="text-xl text-slate-600 leading-relaxed font-light">
-                  We measure our success by the outcomes we deliver for the federal government. Here are examples of how we solve complex modernization challenges.
-                </p>
-              </div>
+              <FadeInView delay={0}>
+                <div className="text-center mb-20 max-w-3xl mx-auto">
+                  <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Proven Results</span>
+                  <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Past Performance Highlights</h2>
+                  <p className="text-xl text-slate-600 leading-relaxed font-light">
+                    We measure our success by the outcomes we deliver for the federal government. Here are examples of how we solve complex modernization challenges.
+                  </p>
+                </div>
+              </FadeInView>
 
               <div className="grid md:grid-cols-2 gap-10">
                 {/* Case Study 1 */}
-                <div className="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden flex flex-col h-full group hover:shadow-xl transition-shadow duration-300">
-                  <div className="bg-[#1e3a8a] px-8 py-5 flex justify-between items-center relative overflow-hidden">
-                    <div className="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 pointer-events-none transform group-hover:scale-150 transition-transform duration-700"></div>
-                    <span className="text-white font-bold tracking-wide uppercase text-sm relative z-10">Federal Civilian Agency</span>
-                    <span className="bg-[#b48c5a] text-white px-3 py-1 text-xs rounded font-bold uppercase tracking-widest shadow-sm relative z-10">Cloud Migration</span>
+                <FadeInView delay={100} className="h-full">
+                  <div className="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden flex flex-col h-full group hover:shadow-xl transition-shadow duration-300">
+                    <div className="bg-[#1e3a8a] px-8 py-5 flex justify-between items-center relative overflow-hidden">
+                      <div className="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 pointer-events-none transform group-hover:scale-150 transition-transform duration-700"></div>
+                      <span className="text-white font-bold tracking-wide uppercase text-sm relative z-10">Federal Civilian Agency</span>
+                      <span className="bg-[#b48c5a] text-white px-3 py-1 text-xs rounded font-bold uppercase tracking-widest shadow-sm relative z-10">Cloud Migration</span>
+                    </div>
+                    <div className="p-10 flex-grow flex flex-col">
+                      <div className="mb-8">
+                        <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">The Challenge</h4>
+                        <p className="text-slate-700 leading-relaxed text-lg">The agency relied on a costly, legacy on-premise data center that suffered from frequent latency issues and security bottlenecks, hindering citizen services.</p>
+                      </div>
+                      <div className="mb-8">
+                        <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">Our Solution</h4>
+                        <p className="text-slate-700 leading-relaxed text-lg">Architected and executed a seamless lift-and-shift migration of 150+ critical applications to a FedRAMP High Azure GovCloud environment, implementing Infrastructure as Code (IaC).</p>
+                      </div>
+                      <div className="mt-auto bg-white p-6 rounded-xl border border-slate-100 shadow-sm border-l-4 border-l-[#b48c5a]">
+                        <h4 className="text-xs font-extrabold text-[#b48c5a] uppercase tracking-widest mb-2 flex items-center gap-2">
+                           The Result
+                        </h4>
+                        <p className="text-slate-900 font-semibold text-lg leading-snug">Achieved a 40% reduction in system downtime and reduced annual infrastructure overhead by 25%.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-10 flex-grow flex flex-col">
-                    <div className="mb-8">
-                      <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">The Challenge</h4>
-                      <p className="text-slate-700 leading-relaxed text-lg">The agency relied on a costly, legacy on-premise data center that suffered from frequent latency issues and security bottlenecks, hindering citizen services.</p>
-                    </div>
-                    <div className="mb-8">
-                      <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">Our Solution</h4>
-                      <p className="text-slate-700 leading-relaxed text-lg">Architected and executed a seamless lift-and-shift migration of 150+ critical applications to a FedRAMP High Azure GovCloud environment, implementing Infrastructure as Code (IaC).</p>
-                    </div>
-                    <div className="mt-auto bg-white p-6 rounded-xl border border-slate-100 shadow-sm border-l-4 border-l-[#b48c5a]">
-                      <h4 className="text-xs font-extrabold text-[#b48c5a] uppercase tracking-widest mb-2 flex items-center gap-2">
-                         The Result
-                      </h4>
-                      <p className="text-slate-900 font-semibold text-lg leading-snug">Achieved a 40% reduction in system downtime and reduced annual infrastructure overhead by 25%.</p>
-                    </div>
-                  </div>
-                </div>
+                </FadeInView>
 
                 {/* Case Study 2 */}
-                <div className="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden flex flex-col h-full group hover:shadow-xl transition-shadow duration-300">
-                  <div className="bg-[#1e3a8a] px-8 py-5 flex justify-between items-center relative overflow-hidden">
-                    <div className="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 pointer-events-none transform group-hover:scale-150 transition-transform duration-700"></div>
-                    <span className="text-white font-bold tracking-wide uppercase text-sm relative z-10">Defense Agency</span>
-                    <span className="bg-[#b48c5a] text-white px-3 py-1 text-xs rounded font-bold uppercase tracking-widest shadow-sm relative z-10">DevSecOps</span>
+                <FadeInView delay={300} className="h-full">
+                  <div className="bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden flex flex-col h-full group hover:shadow-xl transition-shadow duration-300">
+                    <div className="bg-[#1e3a8a] px-8 py-5 flex justify-between items-center relative overflow-hidden">
+                      <div className="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10 pointer-events-none transform group-hover:scale-150 transition-transform duration-700"></div>
+                      <span className="text-white font-bold tracking-wide uppercase text-sm relative z-10">Defense Agency</span>
+                      <span className="bg-[#b48c5a] text-white px-3 py-1 text-xs rounded font-bold uppercase tracking-widest shadow-sm relative z-10">DevSecOps</span>
+                    </div>
+                    <div className="p-10 flex-grow flex flex-col">
+                      <div className="mb-8">
+                        <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">The Challenge</h4>
+                        <p className="text-slate-700 leading-relaxed text-lg">Manual security testing and fragmented development workflows resulted in delayed software releases and prolonged ATO (Authority to Operate) cycles.</p>
+                      </div>
+                      <div className="mb-8">
+                        <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">Our Solution</h4>
+                        <p className="text-slate-700 leading-relaxed text-lg">Designed and deployed an automated CI/CD pipeline integrated with Fortify and SonarQube, shifting security left to catch vulnerabilities during the coding phase.</p>
+                      </div>
+                      <div className="mt-auto bg-white p-6 rounded-xl border border-slate-100 shadow-sm border-l-4 border-l-[#b48c5a]">
+                        <h4 className="text-xs font-extrabold text-[#b48c5a] uppercase tracking-widest mb-2 flex items-center gap-2">
+                           The Result
+                        </h4>
+                        <p className="text-slate-900 font-semibold text-lg leading-snug">Reduced code deployment times from weeks to hours and accelerated the ATO process by 3 months.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-10 flex-grow flex flex-col">
-                    <div className="mb-8">
-                      <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">The Challenge</h4>
-                      <p className="text-slate-700 leading-relaxed text-lg">Manual security testing and fragmented development workflows resulted in delayed software releases and prolonged ATO (Authority to Operate) cycles.</p>
-                    </div>
-                    <div className="mb-8">
-                      <h4 className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3">Our Solution</h4>
-                      <p className="text-slate-700 leading-relaxed text-lg">Designed and deployed an automated CI/CD pipeline integrated with Fortify and SonarQube, shifting security left to catch vulnerabilities during the coding phase.</p>
-                    </div>
-                    <div className="mt-auto bg-white p-6 rounded-xl border border-slate-100 shadow-sm border-l-4 border-l-[#b48c5a]">
-                      <h4 className="text-xs font-extrabold text-[#b48c5a] uppercase tracking-widest mb-2 flex items-center gap-2">
-                         The Result
-                      </h4>
-                      <p className="text-slate-900 font-semibold text-lg leading-snug">Reduced code deployment times from weeks to hours and accelerated the ATO process by 3 months.</p>
-                    </div>
-                  </div>
-                </div>
+                </FadeInView>
               </div>
             </div>
           </section>
@@ -519,66 +619,80 @@ export default function App() {
           {/* Compliance Banner - Sleeker design */}
           <section className="bg-slate-900 py-16 border-y border-slate-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
-                <div className="text-white lg:w-1/3 text-center lg:text-left">
-                  <h3 className="text-3xl font-extrabold tracking-tight mb-2">Built on Strict Standards</h3>
-                  <p className="text-slate-400 font-light text-lg">We align all architecture and engineering efforts with federal mandates.</p>
+              <FadeInView delay={0}>
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+                  <div className="text-white lg:w-1/3 text-center lg:text-left">
+                    <h3 className="text-3xl font-extrabold tracking-tight mb-2">Built on Strict Standards</h3>
+                    <p className="text-slate-400 font-light text-lg">We align all architecture and engineering efforts with federal mandates.</p>
+                  </div>
+                  <div className="flex flex-wrap justify-center lg:justify-end gap-5 lg:w-2/3">
+                    <div className="bg-slate-950 text-slate-300 border border-slate-800 px-6 py-4 rounded-lg shadow-inner flex items-center gap-3 font-mono text-sm font-bold tracking-wide hover:border-[#b48c5a]/50 transition-colors">
+                      <Lock size={18} className="text-[#b48c5a]"/> NIST 800-53 Rev 5
+                    </div>
+                    <div className="bg-slate-950 text-slate-300 border border-slate-800 px-6 py-4 rounded-lg shadow-inner flex items-center gap-3 font-mono text-sm font-bold tracking-wide hover:border-[#b48c5a]/50 transition-colors">
+                      <Globe size={18} className="text-[#b48c5a]"/> FedRAMP Security
+                    </div>
+                    <div className="bg-slate-950 text-slate-300 border border-slate-800 px-6 py-4 rounded-lg shadow-inner flex items-center gap-3 font-mono text-sm font-bold tracking-wide hover:border-[#b48c5a]/50 transition-colors">
+                      <ShieldCheck size={18} className="text-[#b48c5a]"/> Zero Trust Architecture
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-wrap justify-center lg:justify-end gap-5 lg:w-2/3">
-                  <div className="bg-slate-950 text-slate-300 border border-slate-800 px-6 py-4 rounded-lg shadow-inner flex items-center gap-3 font-mono text-sm font-bold tracking-wide hover:border-[#b48c5a]/50 transition-colors">
-                    <Lock size={18} className="text-[#b48c5a]"/> NIST 800-53 Rev 5
-                  </div>
-                  <div className="bg-slate-950 text-slate-300 border border-slate-800 px-6 py-4 rounded-lg shadow-inner flex items-center gap-3 font-mono text-sm font-bold tracking-wide hover:border-[#b48c5a]/50 transition-colors">
-                    <Globe size={18} className="text-[#b48c5a]"/> FedRAMP Security
-                  </div>
-                  <div className="bg-slate-950 text-slate-300 border border-slate-800 px-6 py-4 rounded-lg shadow-inner flex items-center gap-3 font-mono text-sm font-bold tracking-wide hover:border-[#b48c5a]/50 transition-colors">
-                    <ShieldCheck size={18} className="text-[#b48c5a]"/> Zero Trust Architecture
-                  </div>
-                </div>
-              </div>
+              </FadeInView>
             </div>
           </section>
 
           {/* Firm Profile (Authority Upgrade) */}
           <section id="about" className="py-32 bg-gray-50">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Firm Profile</span>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">Delta3Tek Federal IT Consulting Firm</h2>
-                <div className="w-20 h-1 bg-[#b48c5a] mx-auto rounded-full"></div>
-              </div>
+              <FadeInView delay={0}>
+                <div className="text-center mb-16">
+                  <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Firm Profile</span>
+                  <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">Delta3Tek Federal IT Consulting Firm</h2>
+                  <div className="w-20 h-1 bg-[#b48c5a] mx-auto rounded-full"></div>
+                </div>
+              </FadeInView>
               
-              <div className="bg-white rounded-3xl p-10 md:p-16 shadow-xl border border-gray-100 mb-16">
-                <p className="text-slate-700 mb-8 leading-relaxed text-xl font-light">
-                  Delta3Tek, LLC is an advanced technology integration and federal government IT consulting firm architecting next-generation digital solutions for the public sector. Founded by enterprise IT veterans with over 10+ years of federal contracting experience, our engineering teams bring deep-domain expertise in deploying and scaling mission-critical infrastructure across the Washington DC and Northern Virginia metro areas.
-                </p>
-                <p className="text-slate-700 leading-relaxed text-xl font-light">
-                  We understand that federal agencies must navigate the complex intersection of strict security compliance, continuous modernization, and legacy technical debt. Our leadership comprises <strong className="text-slate-900 font-bold">PMP-certified managers, CISSP security professionals, and AWS/Azure Certified Cloud Architects</strong>. By leveraging agile methodologies and a zero-trust mindset, our DevSecOps-driven approach ensures transparent delivery pipelines directly aligned with your strategic operational goals.
-                </p>
-              </div>
+              <FadeInView delay={100}>
+                <div className="bg-white rounded-3xl p-10 md:p-16 shadow-xl border border-gray-100 mb-16">
+                  <p className="text-slate-700 mb-8 leading-relaxed text-xl font-light">
+                    Delta3Tek, LLC is a technology integration and federal IT consulting firm delivering secure, scalable, and mission-focused digital solutions for the public sector. Founded by experienced IT professionals with over a decade of federal contracting expertise, we specialize in designing, deploying, and optimizing mission-critical systems across the Washington, DC and Northern Virginia region.
+                  </p>
+                  <p className="text-slate-700 leading-relaxed text-xl font-light">
+                    We understand the unique challenges federal agencies face—balancing strict compliance requirements, accelerating modernization efforts, and managing complex legacy environments. Our team brings deep expertise in cloud computing, cybersecurity, and enterprise IT, supported by industry-recognized certifications including PMP, CISSP, and leading cloud platforms. Leveraging agile delivery models and a zero-trust security framework, we implement DevSecOps practices that enable faster, more secure, and transparent outcomes. At Delta3Tek, we align every solution with your mission objectives—ensuring resilience, compliance, and long-term operational success.
+                  </p>
+                </div>
+              </FadeInView>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-white p-10 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform">
-                  <div className="bg-amber-50 text-[#b48c5a] p-5 rounded-2xl mb-6">
-                    <Award size={36} />
+                <FadeInView delay={200} className="h-full">
+                  <div className="bg-white p-10 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform h-full">
+                    <div className="bg-amber-50 text-[#b48c5a] p-5 rounded-2xl mb-6">
+                      <Award size={36} />
+                    </div>
+                    <span className="text-slate-900 font-extrabold text-xl mb-2">10+ Years Experience</span>
+                    <span className="text-slate-500 text-sm font-medium">Deep federal IT domain knowledge</span>
                   </div>
-                  <span className="text-slate-900 font-extrabold text-xl mb-2">10+ Years Experience</span>
-                  <span className="text-slate-500 text-sm font-medium">Deep federal IT domain knowledge</span>
-                </div>
-                <div className="bg-white p-10 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform">
-                  <div className="bg-amber-50 text-[#b48c5a] p-5 rounded-2xl mb-6">
-                    <Building2 size={36} />
+                </FadeInView>
+
+                <FadeInView delay={300} className="h-full">
+                  <div className="bg-white p-10 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform h-full">
+                    <div className="bg-amber-50 text-[#b48c5a] p-5 rounded-2xl mb-6">
+                      <Building2 size={36} />
+                    </div>
+                    <span className="text-slate-900 font-extrabold text-xl mb-2">Cleared Personnel</span>
+                    <span className="text-slate-500 text-sm font-medium">Ready for secure environment tasks</span>
                   </div>
-                  <span className="text-slate-900 font-extrabold text-xl mb-2">Cleared Personnel</span>
-                  <span className="text-slate-500 text-sm font-medium">Ready for secure environment tasks</span>
-                </div>
-                <div className="bg-white p-10 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform">
-                  <div className="bg-amber-50 text-[#b48c5a] p-5 rounded-2xl mb-6">
-                    <FileText size={36} />
+                </FadeInView>
+
+                <FadeInView delay={400} className="h-full">
+                  <div className="bg-white p-10 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform h-full">
+                    <div className="bg-amber-50 text-[#b48c5a] p-5 rounded-2xl mb-6">
+                      <FileText size={36} />
+                    </div>
+                    <span className="text-slate-900 font-extrabold text-xl mb-2">Certified Experts</span>
+                    <span className="text-slate-500 text-sm font-medium">CISSP, PMP, AWS & Azure Certified</span>
                   </div>
-                  <span className="text-slate-900 font-extrabold text-xl mb-2">Certified Experts</span>
-                  <span className="text-slate-500 text-sm font-medium">CISSP, PMP, AWS & Azure Certified</span>
-                </div>
+                </FadeInView>
               </div>
             </div>
           </section>
@@ -591,6 +705,7 @@ export default function App() {
       {currentPage === 'devsecops' && <DevSecOpsPage navigateTo={navigateTo} />}
       {currentPage === 'data-analytics' && <DataAnalyticsPage navigateTo={navigateTo} />}
       {currentPage === 'capability-statement' && <CapabilityStatementPage navigateTo={navigateTo} />}
+      {currentPage === 'case-study' && <CaseStudyPage navigateTo={navigateTo} />}
       {currentPage === 'privacy-policy' && <PrivacyPolicyPage navigateTo={navigateTo} />}
       {currentPage === 'terms-of-use' && <TermsOfUsePage navigateTo={navigateTo} />}
       {currentPage === 'accessibility' && <AccessibilityPage navigateTo={navigateTo} />}
@@ -609,12 +724,18 @@ export default function App() {
                 <BrandLogo className="h-16 w-auto" />
               </div>
               <p className="text-slate-400 text-base leading-relaxed mb-8 max-w-md font-light">
-                Delta3Tek, LLC is a premier <strong className="text-slate-300 font-medium">federal IT staffing company</strong> and IT consulting firm in the USA, delivering excellence in cloud computing, cybersecurity consulting services, and contract staffing solutions.
+                Delta3Tek, LLC is a trusted federal IT consulting and staffing firm, delivering enterprise-grade cloud, cybersecurity, and workforce solutions nationwide.
               </p>
-              <div className="text-sm font-mono text-slate-500 space-y-2 bg-slate-900 inline-block p-4 rounded-lg border border-slate-800">
-                <p><span className="text-slate-600 uppercase tracking-widest text-[10px] block mb-1">Entity UEI</span> <span className="font-bold text-white">[PENDING]</span></p>
-                <div className="w-full h-px bg-slate-800 my-2"></div>
-                <p><span className="text-slate-600 uppercase tracking-widest text-[10px] block mb-1">CAGE Code</span> <span className="font-bold text-white">[PENDING]</span></p>
+              <div className="text-sm font-mono text-slate-500 space-y-3 bg-slate-900 inline-block p-5 rounded-xl border border-slate-800 shadow-inner">
+                <div>
+                  <span className="text-slate-500 uppercase tracking-widest text-[10px] mb-1 flex items-center gap-1.5"><ShieldCheck size={12} className="text-[#b48c5a]"/> Federal Readiness</span> 
+                  <span className="font-bold text-white text-xs">Cleared Facility & Personnel</span>
+                </div>
+                <div className="w-full h-px bg-slate-800 my-1"></div>
+                <div>
+                  <span className="text-slate-500 uppercase tracking-widest text-[10px] mb-1 flex items-center gap-1.5"><Lock size={12} className="text-[#b48c5a]"/> Security & Compliance</span> 
+                  <span className="font-bold text-white text-xs">NIST 800-53 & FedRAMP</span>
+                </div>
               </div>
             </div>
 
@@ -754,12 +875,12 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
               <h3 className="text-sm font-bold text-[#b48c5a] uppercase tracking-widest mb-6">Company Snapshot</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
                 <div>
-                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">UEI</span>
-                  <span className="font-mono font-bold text-[#1e3a8a]">[PENDING]</span>
+                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">Compliance</span>
+                  <span className="font-mono font-bold text-[#1e3a8a]">NIST 800-53 Aligned</span>
                 </div>
                 <div>
-                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">CAGE Code</span>
-                  <span className="font-mono font-bold text-[#1e3a8a]">[PENDING]</span>
+                  <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">Core Focus</span>
+                  <span className="font-mono font-bold text-[#1e3a8a]">Enterprise Modernization</span>
                 </div>
                 <div>
                   <span className="block text-slate-400 font-bold uppercase tracking-widest text-[10px] mb-1">Socioeconomic</span>
@@ -857,6 +978,221 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
       </section>
     </div>
   );
+
+/* =========================================
+   NEW: CASE STUDY PAGE
+   ========================================= */
+const CaseStudyPage = ({ navigateTo }) => {
+  return (
+    <div className="bg-[#F8FAFC] min-h-screen pb-24">
+      <PageHeader 
+        title="Case Study: HHS Modernization" 
+        description="Modernizing IT Infrastructure and executing a secure cloud migration for the U.S. Department of Health and Human Services." 
+        navigateTo={navigateTo} 
+      />
+      
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Main Content Area */}
+          <div className="lg:col-span-8 space-y-8">
+            <FadeInView delay={0}>
+              <div className="bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-6 tracking-tight">Overview</h2>
+                <p className="text-slate-600 leading-relaxed text-lg font-light">
+                  The U.S. Department of Health and Human Services is responsible for protecting the health of millions of Americans and managing vast volumes of sensitive data across multiple agencies. To improve service delivery, scalability, and security, HHS initiated a modernization effort to transition from legacy, on-premises systems to a secure, cloud-based infrastructure.
+                </p>
+                <p className="text-slate-600 leading-relaxed text-lg font-light mt-4">
+                  Delta3Tek partnered with HHS to design and implement a modern, compliant, and cost-efficient cloud environment aligned with federal mandates such as FedRAMP and FISMA.
+                </p>
+              </div>
+            </FadeInView>
+
+            <FadeInView delay={150}>
+              <div className="bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-8 tracking-tight">The Challenges</h2>
+                <div className="grid sm:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                      <Server size={18} className="text-red-500" /> 1. Legacy Constraints
+                    </h4>
+                    <p className="text-sm text-slate-600">Aging on-premise systems required high maintenance overhead and offered limited scalability for surges in healthcare data.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                      <ShieldAlert size={18} className="text-red-500" /> 2. Complex Compliance
+                    </h4>
+                    <p className="text-sm text-slate-600">Strict adherence to federal security frameworks was required to ensure the absolute protection of sensitive health data (PII/PHI).</p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                      <Database size={18} className="text-red-500" /> 3. Fragmented IT
+                    </h4>
+                    <p className="text-sm text-slate-600">Multiple disconnected systems existed across departments resulting in a severe lack of centralized monitoring and automation.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                      <TrendingUp size={18} className="text-red-500" /> 4. Rising Costs
+                    </h4>
+                    <p className="text-sm text-slate-600">Inefficient resource utilization led to continually rising infrastructure and software licensing costs.</p>
+                  </div>
+                </div>
+              </div>
+            </FadeInView>
+
+            <FadeInView delay={300}>
+              <div className="bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-8 tracking-tight">The Solution</h2>
+                <p className="text-slate-600 mb-8 font-light text-lg">Delta3Tek delivered a phased cloud modernization strategy focused on security, scalability, and cost efficiency.</p>
+                
+                <div className="space-y-8">
+                  <div className="flex">
+                    <div className="flex-shrink-0 mt-1 mr-4">
+                      <div className="bg-blue-50 p-3 rounded-lg"><Cloud className="text-[#1e3a8a] w-6 h-6" /></div>
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-lg mb-2">Cloud Migration Strategy</h4>
+                      <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 ml-2 marker:text-[#b48c5a]">
+                        <li>Migrated critical workloads to secure cloud platforms (Microsoft Azure & AWS).</li>
+                        <li>Implemented hybrid architecture for highly sensitive workloads.</li>
+                        <li>Utilized automated migration tools to drastically reduce downtime.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="flex-shrink-0 mt-1 mr-4">
+                      <div className="bg-blue-50 p-3 rounded-lg"><Shield className="text-[#1e3a8a] w-6 h-6" /></div>
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-lg mb-2">Security & Compliance</h4>
+                      <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 ml-2 marker:text-[#b48c5a]">
+                        <li>Designed architecture explicitly aligned with Zero Trust Architecture principles.</li>
+                        <li>Ensured strict compliance with FedRAMP and FISMA standards.</li>
+                        <li>Integrated advanced identity and access management (IAM) controls.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="flex-shrink-0 mt-1 mr-4">
+                      <div className="bg-blue-50 p-3 rounded-lg"><Settings className="text-[#1e3a8a] w-6 h-6" /></div>
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-lg mb-2">Infrastructure Modernization</h4>
+                      <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 ml-2 marker:text-[#b48c5a]">
+                        <li>Transitioned from monolithic legacy systems to a microservices-based architecture.</li>
+                        <li>Implemented comprehensive containerization and orchestration.</li>
+                        <li>Established robust centralized monitoring and logging.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="flex-shrink-0 mt-1 mr-4">
+                      <div className="bg-blue-50 p-3 rounded-lg"><Zap className="text-[#1e3a8a] w-6 h-6" /></div>
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-lg mb-2">DevSecOps Enablement</h4>
+                      <ul className="list-disc list-inside text-slate-600 text-sm space-y-1 ml-2 marker:text-[#b48c5a]">
+                        <li>Built CI/CD pipelines with continuously integrated security scanning.</li>
+                        <li>Automated infrastructure provisioning using Infrastructure as Code (IaC).</li>
+                        <li>Reduced operational deployment cycles from weeks to hours.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeInView>
+
+            <FadeInView delay={450}>
+              <div className="bg-slate-900 p-8 md:p-12 rounded-2xl shadow-xl border border-slate-800 text-white">
+                <h2 className="text-2xl font-extrabold mb-8 tracking-tight text-[#b48c5a]">The Results</h2>
+                
+                <div className="grid md:grid-cols-3 gap-8">
+                  <div>
+                    <Activity className="text-[#b48c5a] w-10 h-10 mb-4" />
+                    <h4 className="font-extrabold text-xl mb-2">40%</h4>
+                    <p className="text-slate-300 text-sm font-light">Improvement in system performance and reliability. Reduced provisioning time by 60%.</p>
+                  </div>
+                  <div>
+                    <ShieldCheck className="text-[#b48c5a] w-10 h-10 mb-4" />
+                    <h4 className="font-extrabold text-xl mb-2">100%</h4>
+                    <p className="text-slate-300 text-sm font-light">Achieved full compliance with federal security standards and enhanced threat detection.</p>
+                  </div>
+                  <div>
+                    <DollarSign className="text-[#b48c5a] w-10 h-10 mb-4" />
+                    <h4 className="font-extrabold text-xl mb-2">35%</h4>
+                    <p className="text-slate-300 text-sm font-light">Reduction in total infrastructure costs. Eliminated significant on-prem maintenance expenses.</p>
+                  </div>
+                </div>
+
+                <div className="mt-10 pt-8 border-t border-slate-800">
+                  <h4 className="font-bold text-lg mb-4 flex items-center gap-2"><Lightbulb size={20} className="text-[#b48c5a]" /> Conclusion</h4>
+                  <p className="text-slate-300 leading-relaxed font-light text-sm">
+                    By partnering with Delta3Tek, the U.S. Department of Health and Human Services successfully modernized its IT infrastructure, improved security posture, and reduced operational costs—while enhancing its ability to deliver critical healthcare services to millions of citizens.
+                  </p>
+                </div>
+              </div>
+            </FadeInView>
+
+          </div>
+
+          {/* Sidebar / Metadata Area */}
+          <div className="lg:col-span-4 space-y-8 sticky top-32">
+            
+            <FadeInView delay={100}>
+              <div className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+                <h3 className="text-sm font-bold text-[#0B1F3B] mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">Engagement Details</h3>
+                
+                <div className="space-y-6">
+                  <div>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Client</span>
+                    <strong className="text-slate-900 text-sm flex items-center gap-2"><Building2 size={16} className="text-[#1e3a8a]"/> U.S. Department of HHS</strong>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Industry</span>
+                    <strong className="text-slate-900 text-sm flex items-center gap-2"><HeartPulse size={16} className="text-[#1e3a8a]"/> Healthcare & Public Services</strong>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Services Delivered</span>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-slate-50 text-slate-600 border border-slate-200 text-xs px-2 py-1 rounded font-medium">Cloud Migration</span>
+                      <span className="bg-slate-50 text-slate-600 border border-slate-200 text-xs px-2 py-1 rounded font-medium">IT Modernization</span>
+                      <span className="bg-slate-50 text-slate-600 border border-slate-200 text-xs px-2 py-1 rounded font-medium">DevSecOps</span>
+                      <span className="bg-slate-50 text-slate-600 border border-slate-200 text-xs px-2 py-1 rounded font-medium">Cost Optimization</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeInView>
+
+            <FadeInView delay={250}>
+              <div className="bg-amber-50 p-6 rounded-2xl border border-[#b48c5a]/20">
+                <h4 className="text-[#b48c5a] font-extrabold text-sm uppercase tracking-widest mb-3 flex items-center gap-2">
+                  <Info size={16} /> Disclaimer
+                </h4>
+                <p className="text-slate-700 text-xs leading-relaxed">
+                  This case study is a representative example based on industry best practices and typical federal modernization engagements.
+                </p>
+              </div>
+            </FadeInView>
+
+            <FadeInView delay={400}>
+              <div className="mt-8 pt-8">
+                <button onClick={() => navigateTo('contact')} className="w-full bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-6 py-4 rounded-xl font-bold transition-colors text-sm text-center shadow-lg">
+                  Discuss Your Modernization Project
+                </button>
+              </div>
+            </FadeInView>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 
 /* =========================================
    Individual Capability Pages 
@@ -1055,22 +1391,36 @@ const CareersPage = ({ navigateTo }) => (
     content={
       <>
         <div>
-          <p className="mb-6 text-lg">At Delta3Tek, LLC, we solve complex, mission-critical challenges for federal agencies through innovative and secure technology solutions. Our work spans cloud modernization, cybersecurity, and DevSecOps—supporting systems that demand the highest levels of performance, reliability, and compliance.</p>
+          <FadeInView delay={0}>
+            <p className="mb-6 text-lg">At Delta3Tek, LLC, we tackle complex, mission-critical challenges for federal agencies by delivering secure, innovative technology solutions. Our work spans cloud modernization, cybersecurity, and DevSecOps—supporting high-impact systems that demand exceptional performance, resilience, and compliance.</p>
+          </FadeInView>
           
-          <p className="mb-6 text-lg">We believe that delivering exceptional outcomes starts with building an exceptional team. Our culture is rooted in collaboration, continuous learning, and technical excellence. We empower our people to think critically, innovate confidently, and contribute meaningfully to projects that have real-world impact.</p>
+          <FadeInView delay={150}>
+            <p className="mb-6 text-lg">We believe great outcomes start with great people. Our culture is built on collaboration, continuous learning, and technical excellence. We empower our teams to think critically, innovate with confidence, and contribute to meaningful work that directly supports national missions.</p>
+          </FadeInView>
           
-          <p className="mb-6 text-lg">As a premier <strong className="font-bold text-slate-800">technical staffing agency</strong> and provider of <strong className="font-bold text-slate-800">talent acquisition services</strong>, Delta3Tek, LLC provides exciting roles for experienced professionals. We invest in your growth—both professionally and personally—by providing opportunities to develop new skills, take on challenging work, and advance your career.</p>
+          <FadeInView delay={300}>
+            <p className="mb-6 text-lg">As a trusted provider of IT staffing and talent solutions, we offer rewarding opportunities for experienced professionals to work on cutting-edge technologies and high-visibility federal programs. Many of our roles support secure environments and require active federal security clearances (such as Public Trust, Secret or Top Secret). We actively seek cleared professionals as well as candidates eligible to obtain a clearance who are ready to contribute to mission-critical initiatives.</p>
+          </FadeInView>
           
-          <p className="mb-8 text-lg">We are always looking for motivated individuals who thrive in dynamic environments, embrace innovation, and are driven to make a difference. If you enjoy solving complex problems, building modern solutions, and working on impactful federal programs, Delta3Tek, LLC could be the right place for you.</p>
+          <FadeInView delay={450}>
+            <p className="mb-6 text-lg">We are committed to your growth—providing the tools, mentorship, and experiences needed to expand your skills and advance your career, including opportunities to work within cleared programs and specialized federal environments.</p>
+          </FadeInView>
+          
+          <FadeInView delay={600}>
+            <p className="mb-8 text-lg">We’re looking for driven individuals who thrive in fast-paced environments, embrace innovation, and are passionate about making an impact. If you enjoy solving complex problems, building modern solutions, and contributing to mission-driven work, Delta3Tek is where you can grow, serve, and make a difference.</p>
+          </FadeInView>
         </div>
         
-        <div className="bg-slate-50 border border-slate-200 p-8 rounded-xl text-center">
-          <h3 className="text-2xl font-extrabold text-[#1e3a8a] mb-4">Ready to Make an Impact?</h3>
-          <p className="text-lg text-slate-600 mb-6">Explore our current opportunities or submit your resume directly to our recruiting team.</p>
-          <a href="mailto:careers@delta3tek.com" className="inline-flex items-center justify-center bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-4 rounded-xl font-bold transition-colors text-sm shadow-md">
-            <Mail size={16} className="mr-2" /> Submit Resume to careers@delta3tek.com
-          </a>
-        </div>
+        <FadeInView delay={750}>
+          <div className="bg-slate-50 border border-slate-200 p-8 rounded-xl text-center">
+            <h3 className="text-2xl font-extrabold text-[#1e3a8a] mb-4">Ready to Make an Impact?</h3>
+            <p className="text-lg text-slate-600 mb-6">Explore our current opportunities or submit your resume directly to our recruiting team.</p>
+            <a href="mailto:careers@delta3tek.com" className="inline-flex items-center justify-center bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-4 rounded-xl font-bold transition-colors text-sm shadow-md">
+              <Mail size={16} className="mr-2" /> Submit Resume to careers@delta3tek.com
+            </a>
+          </div>
+        </FadeInView>
       </>
     }
   />
@@ -1149,177 +1499,8 @@ const ContactPage = ({ navigateTo }) => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-bold text-[#0B1F3B] mb-2">Full Name <span className="text-red-500">*</span></label>
-                  <input type="text" id="name" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="Jane Doe" />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-bold text-[#0B1F3B] mb-2">Email Address <span className="text-red-500">*</span></label>
-                  <input type="email" id="email" name="email" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="jane@agency.gov" />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="organization" className="block text-sm font-bold text-[#0B1F3B] mb-2">Organization / Agency</label>
-                <input type="text" id="organization" name="organization" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="e.g. Department of Defense" />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-bold text-[#0B1F3B] mb-2">How can we help you? <span className="text-red-500">*</span></label>
-                <textarea id="message" name="message" required rows="5" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors resize-none" placeholder="Please describe your inquiry..."></textarea>
-              </div>
-
-              <button 
-                type="submit" 
-                disabled={submissionStatus === 'submitting'}
-                className="inline-flex items-center justify-center w-full sm:w-auto bg-[#1e3a8a] hover:bg-[#b48c5a] text-white px-8 py-3.5 rounded-xl font-bold transition-colors text-sm shadow-md disabled:opacity-70 disabled:cursor-not-allowed min-w-[160px]"
-              >
-                {submissionStatus === 'submitting' ? (
-                  <>
-                    <Loader2 size={18} className="mr-2 animate-spin" /> Processing...
-                  </>
-                ) : (
-                  <>
-                    <Send size={16} className="mr-2" /> Send Message
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
-
-          {/* Contact Information Sidebar */}
-          <div className="lg:col-span-4 space-y-8 sticky top-32">
-            
-            <div className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-              <h3 className="text-sm font-bold text-[#0B1F3B] mb-6 uppercase tracking-widest border-b border-slate-100 pb-4">Corporate Office</h3>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="bg-slate-50 p-3 rounded-lg mr-4 text-[#b48c5a]">
-                    <Building2 size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#0B1F3B] text-sm mb-1">Headquarters</h4>
-                    <p className="text-slate-600 text-sm leading-relaxed">Northern Virginia / Washington DC Metro</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-slate-50 p-3 rounded-lg mr-4 text-[#b48c5a]">
-                    <Mail size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#0B1F3B] text-sm mb-1">General Inquiries</h4>
-                    <a href="mailto:info@delta3tek.com" className="text-slate-600 text-sm hover:text-[#b48c5a] transition-colors">info@delta3tek.com</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-[#0B1F3B] p-8 rounded-2xl shadow-lg border border-[#1e3a8a] text-white">
-              <h3 className="text-xl font-extrabold mb-3">Join Our Team</h3>
-              <p className="text-slate-300 text-sm leading-relaxed mb-6 font-light">We are actively recruiting cleared personnel for upcoming federal projects.</p>
-              <button onClick={() => navigateTo('careers')} className="inline-flex items-center text-[#b48c5a] font-bold text-sm tracking-wide uppercase group hover:text-white transition-colors">
-                View Careers <ChevronRight size={16} className="ml-1 transform group-hover:translate-x-1 transition-transform duration-300" />
-              </button>
-            </div>
-
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
-
-const PartneringPage = ({ navigateTo }) => {
-  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmissionStatus('submitting');
-
-    const formData = new FormData(e.target);
-
-    try {
-      const response = await fetch("https://formspree.io/f/mqenadqj", {
-        method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        setSubmissionStatus('success');
-      } else {
-        setSubmissionStatus('error');
-      }
-    } catch (err) {
-      setSubmissionStatus('error');
-    }
-  };
-
-  if (submissionStatus === 'success') {
-    return (
-      <div className="bg-[#F8FAFC] min-h-screen pb-24 flex items-center justify-center px-4">
-        <div className="max-w-md w-full bg-white p-12 rounded-3xl shadow-2xl text-center border border-slate-100">
-          <div className="bg-amber-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8">
-            <ShieldCheck className="text-[#b48c5a] w-10 h-10" />
-          </div>
-          <h2 className="text-3xl font-extrabold text-slate-900 mb-4">Request Submitted</h2>
-          <p className="text-slate-600 mb-10 leading-relaxed font-light">
-            Thank you for contacting Delta3Tek, LLC. Your inquiry has been received by our Team.<br /><br />
-            We appreciate your interest and will follow up promptly.
-          </p>
-          <button onClick={() => navigateTo('home')} className="w-full bg-[#1e3a8a] text-white py-4 rounded-xl font-bold hover:bg-slate-900 transition-colors shadow-lg">
-            Return to Homepage
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bg-[#F8FAFC] min-h-screen pb-24">
-      <PageHeader 
-        title="Teaming & Partnerships" 
-        description="We actively seek strategic partnerships with large primes, specialized small businesses, and technology vendors to deliver comprehensive federal solutions." 
-        navigateTo={navigateTo} 
-      />
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Partnering Form */}
-          <div className="lg:col-span-8 bg-white p-8 md:p-12 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-            <h2 className="text-2xl font-extrabold text-[#0B1F3B] mb-2 tracking-tight">Partner With Us</h2>
-            <p className="text-slate-500 mb-8 font-light">Submit your corporate capabilities below to initiate a teaming discussion.</p>
-            
-            {submissionStatus === 'error' && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center">
-                <AlertCircle size={18} className="mr-2 flex-shrink-0" />
-                <p className="text-sm">There was an issue submitting your request. Please try again later.</p>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-bold text-[#0B1F3B] mb-2">Point of Contact <span className="text-red-500">*</span></label>
-                  <input type="text" id="name" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="John Doe" />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-bold text-[#0B1F3B] mb-2">Email Address <span className="text-red-500">*</span></label>
-                  <input type="email" id="email" name="email" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="john@company.com" />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="company" className="block text-sm font-bold text-[#0B1F3B] mb-2">Company Name <span className="text-red-500">*</span></label>
-                <input type="text" id="company" name="company" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="e.g. Acme Federal IT" />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="uei" className="block text-sm font-bold text-[#0B1F3B] mb-2">UEI / CAGE Code</label>
-                  <input type="text" id="uei" name="uei" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="Optional" />
+                  <label htmlFor="website" className="block text-sm font-bold text-[#0B1F3B] mb-2">Company Website</label>
+                  <input type="url" id="website" name="website" className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-[#b48c5a] focus:ring-1 focus:ring-[#b48c5a] transition-colors" placeholder="https://..." />
                 </div>
                 <div>
                   <label htmlFor="status" className="block text-sm font-bold text-[#0B1F3B] mb-2">Socioeconomic Status</label>
