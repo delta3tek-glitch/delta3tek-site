@@ -58,6 +58,70 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [scrolled, setScrolled] = useState(false);
 
+  // SEO Management Hook - Dynamically updates Meta Tags based on the current page route
+  useEffect(() => {
+    const seoData = {
+      'home': {
+        title: "Delta3Tek | Federal Consulting Services & IT Staff Augmentation",
+        desc: "Top federal IT consulting company and technical staffing agency in Washington DC and Northern Virginia. We provide enterprise IT solutions and staff augmentation for government contracts."
+      },
+      'enterprise-it': {
+        title: "Cloud Consulting Services & Enterprise IT Solutions | Delta3Tek",
+        desc: "Expert cloud consulting services and enterprise IT solutions provider for federal agencies. AWS GovCloud and Azure migration specialists in USA."
+      },
+      'cybersecurity': {
+        title: "Cybersecurity Consulting Services | Delta3Tek",
+        desc: "Government IT consulting for Zero Trust Architecture and NIST 800-53 RMF compliance. Specialized cybersecurity staffing for federal agencies."
+      },
+      'devsecops': {
+        title: "DevSecOps Integration & Technical Staffing | Delta3Tek",
+        desc: "Automate your CI/CD pipelines with our DevSecOps integration. We are a technical staffing agency providing cleared software engineers for government contracts."
+      },
+      'data-analytics': {
+        title: "Data Analytics & AI Federal IT Consulting | Delta3Tek",
+        desc: "Transform federal agency data with our predictive AI models and data lakes. Innovative enterprise IT solutions provider."
+      },
+      'capability-statement': {
+        title: "Corporate Capability Statement | GSA Consulting Services | Delta3Tek",
+        desc: "Review our past performance, core competencies, and IT staff augmentation services. Delta3Tek is a trusted federal consulting firm in the USA."
+      },
+      'careers': {
+        title: "Careers | Talent Acquisition Services | Delta3Tek",
+        desc: "Join our federal IT staffing company. We offer contract staffing solutions, recruitment process outsourcing (RPO), and technical staffing for government IT."
+      },
+      'partnering': {
+        title: "Teaming & Partnerships | Staffing Agency for Government Contracts",
+        desc: "Partner with Delta3Tek for federal consulting services and GSA consulting services. We actively seek strategic partnerships with primes and vendors."
+      }
+    };
+
+    const currentSeo = seoData[currentPage] || {
+      title: "Delta3Tek | Government IT Consulting Firm",
+      desc: "Federal IT consulting services, talent acquisition, and contract staffing solutions provider."
+    };
+
+    // Set document title
+    document.title = currentSeo.title;
+
+    // Set meta description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.name = "description";
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = currentSeo.desc;
+
+    // Set targeted global SEO keywords
+    let metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (!metaKeywords) {
+      metaKeywords = document.createElement('meta');
+      metaKeywords.name = "keywords";
+      document.head.appendChild(metaKeywords);
+    }
+    metaKeywords.content = "federal consulting services, government IT consulting, IT staff augmentation services, staffing agency for government contracts, technical staffing agency, cloud consulting services, cybersecurity consulting services, federal IT staffing company";
+  }, [currentPage]);
+
   // Handle subtle nav shadow on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -180,15 +244,15 @@ export default function App() {
                 
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-[#b48c5a]/30 text-[#b48c5a] text-xs font-bold uppercase tracking-widest mb-10 shadow-lg backdrop-blur-sm">
                   <span className="w-2 h-2 rounded-full bg-[#b48c5a] animate-pulse"></span>
-                  Federal IT Solutions Partner
+                  Federal IT Consulting & Staffing Agency
                 </div>
                 
                 <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-white leading-[1.1] mb-8 tracking-tight">
-                  Azure Cloud, Cybersecurity, and DevSecOps Solutions for Federal Agencies
+                  Enterprise IT Solutions & Federal Consulting Services
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-slate-300 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
-                  Supporting mission-critical systems with secure, scalable, and compliant architectures. We modernize legacy infrastructure to accelerate federal missions.
+                  Supporting government contractors and federal agencies with secure cloud consulting services, cybersecurity, and <strong className="text-white font-medium">IT staff augmentation services</strong>. Based in Northern Virginia / Washington DC.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-5 justify-center">
@@ -258,9 +322,9 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-20 max-w-3xl mx-auto">
                 <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Core Competencies</span>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Engineering Solutions for the Federal Enterprise</h2>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Enterprise IT Solutions Provider for the Federal Government</h2>
                 <p className="text-xl text-slate-600 leading-relaxed font-light">
-                  We don't just maintain systems; we optimize them. Our engineering teams align deeply with agency missions to deliver measurable improvements.
+                  We don't just maintain systems; we optimize them. Our engineering teams provide government IT consulting deeply aligned with agency missions.
                 </p>
               </div>
 
@@ -271,7 +335,7 @@ export default function App() {
                     <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
                       <Server className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
                     </div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Enterprise IT & Cloud</h3>
+                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Cloud Consulting Services</h3>
                   </div>
                   <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
                     Modernize legacy systems and migrate critical workloads to <strong className="text-slate-900 font-semibold">AWS GovCloud and Azure</strong>. Our scalable cloud architectures are designed to <strong className="text-[#b48c5a] font-semibold">reduce infrastructure costs by up to 30%</strong> while guaranteeing 99.99% availability.
@@ -287,7 +351,7 @@ export default function App() {
                     <div className="bg-slate-50 p-4 rounded-xl mr-5 group-hover:bg-[#1e3a8a] transition-colors duration-300">
                       <ShieldCheck className="w-8 h-8 text-[#1e3a8a] group-hover:text-white transition-colors duration-300" />
                     </div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Cybersecurity & RMF</h3>
+                    <h3 className="text-2xl font-extrabold text-slate-900 tracking-tight">Cybersecurity Consulting Services</h3>
                   </div>
                   <p className="text-slate-600 mb-8 leading-relaxed text-lg flex-grow">
                     Implement robust <strong className="text-slate-900 font-semibold">Zero Trust Architectures</strong> strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework (RMF) process to <strong className="text-[#b48c5a] font-semibold">accelerate ATO timelines</strong> without compromising security.
@@ -348,9 +412,9 @@ export default function App() {
                   <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
                     <Users className="text-[#1e3a8a] w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">Staff Augmentation</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">IT Staff Augmentation Services</h3>
                   <p className="text-slate-600 text-sm leading-relaxed">
-                    Providing highly cleared, certified technical professionals (SMEs, engineers, developers) to seamlessly integrate with your existing federal teams and scale mission capabilities on demand.
+                    Providing highly cleared, certified technical professionals (SMEs, engineers, developers) as your premier <strong className="font-semibold text-slate-800">technical staffing agency</strong>. We offer contract staffing solutions, talent acquisition services, and RPO for federal roles.
                   </p>
                 </div>
 
@@ -358,9 +422,9 @@ export default function App() {
                   <div className="bg-white w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-100">
                     <Monitor className="text-[#1e3a8a] w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-4">IT Solutions</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">Enterprise IT Solutions</h3>
                   <p className="text-slate-600 text-sm leading-relaxed">
-                    End-to-end delivery of specialized technology solutions, from enterprise architecture design to full-scale cloud migrations and zero-trust cybersecurity implementations.
+                    End-to-end delivery of specialized technology solutions, from enterprise architecture design to full-scale cloud consulting services and zero-trust cybersecurity implementations.
                   </p>
                 </div>
 
@@ -480,13 +544,13 @@ export default function App() {
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16">
                 <span className="text-[#b48c5a] font-extrabold tracking-widest uppercase text-sm mb-4 block">Firm Profile</span>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">About Delta3Tek</h2>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 tracking-tight">Federal IT Consulting Firm USA</h2>
                 <div className="w-20 h-1 bg-[#b48c5a] mx-auto rounded-full"></div>
               </div>
               
               <div className="bg-white rounded-3xl p-10 md:p-16 shadow-xl border border-gray-100 mb-16">
                 <p className="text-slate-700 mb-8 leading-relaxed text-xl font-light">
-                  Delta3Tek, LLC is an advanced technology integration firm architecting next-generation digital solutions for the public sector. Founded by enterprise IT veterans with <strong className="text-slate-900 font-bold">over 10+ years of federal contracting experience</strong>, our engineering teams bring deep-domain expertise in deploying and scaling mission-critical infrastructure.
+                  Delta3Tek, LLC is an advanced technology integration and <strong className="text-slate-900 font-bold">government IT consulting firm</strong> architecting next-generation digital solutions for the public sector. Founded by enterprise IT veterans with over 10+ years of federal contracting experience, our engineering teams bring deep-domain expertise in deploying and scaling mission-critical infrastructure across the Washington DC and Northern Virginia metro areas.
                 </p>
                 <p className="text-slate-700 leading-relaxed text-xl font-light">
                   We understand that federal agencies must navigate the complex intersection of strict security compliance, continuous modernization, and legacy technical debt. Our leadership comprises <strong className="text-slate-900 font-bold">PMP-certified managers, CISSP security professionals, and AWS/Azure Certified Cloud Architects</strong>. By leveraging agile methodologies and a zero-trust mindset, our DevSecOps-driven approach ensures transparent delivery pipelines directly aligned with your strategic operational goals.
@@ -545,7 +609,7 @@ export default function App() {
                 <BrandLogo className="h-16 w-auto" />
               </div>
               <p className="text-slate-400 text-base leading-relaxed mb-8 max-w-md font-light">
-                Delta3Tek, LLC delivers excellence in federal IT modernization, engineering secure cloud environments and automating DevSecOps pipelines.
+                Delta3Tek, LLC is a premier <strong className="text-slate-300 font-medium">federal IT staffing company</strong> and IT consulting firm in the USA, delivering excellence in cloud computing, cybersecurity consulting services, and contract staffing solutions.
               </p>
               <div className="text-sm font-mono text-slate-500 space-y-2 bg-slate-900 inline-block p-4 rounded-lg border border-slate-800">
                 <p><span className="text-slate-600 uppercase tracking-widest text-[10px] block mb-1">Entity UEI</span> <span className="font-bold text-white">[PENDING]</span></p>
@@ -572,7 +636,7 @@ export default function App() {
               <ul className="space-y-4 text-sm text-slate-400">
                 <li className="flex items-start bg-slate-900 border border-slate-800 p-5 rounded-xl">
                   <Building2 className="w-5 h-5 text-[#b48c5a] mr-4 flex-shrink-0 mt-0.5" />
-                  <span className="leading-relaxed text-base font-light">TBD</span>
+                  <span className="leading-relaxed text-base font-light">Northern Virginia / Washington DC Metro</span>
                 </li>
                 <li className="flex items-center bg-slate-900 border border-slate-800 p-5 rounded-xl group hover:border-[#b48c5a]/50 transition-colors cursor-pointer">
                   <Mail className="w-5 h-5 text-[#b48c5a] mr-4 flex-shrink-0" />
@@ -659,7 +723,7 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
     <div className="animate-in fade-in duration-500 bg-[#F8FAFC] min-h-screen pb-24 print:bg-white print:pb-0">
       <PageHeader 
         title="Corporate Capability Statement" 
-        description="A comprehensive overview of Delta3Tek, LLC's core competencies, past performance, and federal procurement readiness."
+        description="A comprehensive overview of Delta3Tek, LLC's core competencies, past performance, and federal procurement readiness as a GSA consulting services provider."
         navigateTo={navigateTo}
       />
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 print:m-0 print:p-0 print:w-full print:max-w-none print:shadow-none">
@@ -681,7 +745,7 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
               <BrandLogo className="h-12 w-auto mb-8 hidden print:block" />
               <h2 className="text-3xl font-extrabold text-[#1e3a8a] tracking-tight mb-4">Corporate Overview</h2>
               <p className="text-slate-600 leading-relaxed text-lg font-light">
-                Delta3Tek, LLC is an advanced technology integration firm architecting next-generation digital solutions for the public sector. We leverage agile methodologies and a zero-trust mindset to ensure delivery pipelines strictly align with strategic federal operational goals.
+                Delta3Tek, LLC is an advanced technology integration firm and provider of <strong className="font-bold text-slate-800">federal consulting services</strong>, architecting next-generation digital solutions for the public sector. We leverage agile methodologies and a zero-trust mindset to ensure delivery pipelines strictly align with strategic federal operational goals.
               </p>
             </div>
   
@@ -801,7 +865,7 @@ const SubpageLayout = ({ title, description, content, features, navigateTo }) =>
 const EnterpriseITPage = ({ navigateTo }) => (
   <SubpageLayout
     navigateTo={navigateTo}
-    title="Enterprise IT & Cloud"
+    title="Enterprise IT Solutions & Cloud Consulting Services"
     description="Modernize legacy systems and migrate critical workloads to AWS GovCloud and Azure. We architect scalable solutions designed to reduce infrastructure maintenance costs."
     content={
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
@@ -823,12 +887,12 @@ const EnterpriseITPage = ({ navigateTo }) => (
 const CybersecurityPage = ({ navigateTo }) => (
   <SubpageLayout
     navigateTo={navigateTo}
-    title="Cybersecurity & RMF"
+    title="Cybersecurity Consulting Services & RMF"
     description="Implement robust Zero Trust Architectures strictly aligned with NIST 800-53 standards. We streamline the Risk Management Framework process to accelerate ATO."
     content={
       <div className="space-y-6 text-slate-600 text-lg leading-relaxed font-light">
         <p>Securing federal data against evolving threat landscapes is our paramount objective. Delta3Tek, LLC approaches cybersecurity not just as a compliance checklist, but as a foundational element built into every layer of your IT enterprise.</p>
-        <p>We specialize in migrating agencies from perimeter-based security to a modern Zero Trust Architecture (ZTA). Our certified security professionals (CISSP) expertly navigate the NIST Risk Management Framework (RMF), ensuring your systems achieve and maintain their Authority to Operate (ATO) without stifling operational efficiency.</p>
+        <p>We specialize in migrating agencies from perimeter-based security to a modern Zero Trust Architecture (ZTA). Our certified security professionals (CISSP) provide expert <strong className="font-semibold text-slate-800">government IT consulting</strong>, navigating the NIST Risk Management Framework (RMF) to ensure your systems achieve and maintain their Authority to Operate (ATO) without stifling operational efficiency.</p>
       </div>
     }
     features={[
@@ -995,7 +1059,7 @@ const CareersPage = ({ navigateTo }) => (
           
           <p className="mb-6 text-lg">We believe that delivering exceptional outcomes starts with building an exceptional team. Our culture is rooted in collaboration, continuous learning, and technical excellence. We empower our people to think critically, innovate confidently, and contribute meaningfully to projects that have real-world impact.</p>
           
-          <p className="mb-6 text-lg">At Delta3Tek, LLC, you’ll work alongside experienced professionals who are passionate about technology and committed to delivering results. We invest in your growth—both professionally and personally—by providing opportunities to develop new skills, take on challenging work, and advance your career.</p>
+          <p className="mb-6 text-lg">As a premier <strong className="font-bold text-slate-800">technical staffing agency</strong> and provider of <strong className="font-bold text-slate-800">talent acquisition services</strong>, Delta3Tek, LLC provides exciting roles for experienced professionals. We invest in your growth—both professionally and personally—by providing opportunities to develop new skills, take on challenging work, and advance your career.</p>
           
           <p className="mb-8 text-lg">We are always looking for motivated individuals who thrive in dynamic environments, embrace innovation, and are driven to make a difference. If you enjoy solving complex problems, building modern solutions, and working on impactful federal programs, Delta3Tek, LLC could be the right place for you.</p>
         </div>
