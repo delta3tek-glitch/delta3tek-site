@@ -109,8 +109,34 @@ function FadeInView({ children, delay = 0, className = "", direction = "up" }) {
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState('home');
+  
+  // Initialize page from the URL hash if it exists (allows shareable links like /#careers)
+  const getInitialPage = () => {
+    const hash = window.location.hash.replace('#', '');
+    const validPages = ['home', 'enterprise-it', 'cybersecurity', 'devsecops', 'data-analytics', 'capability-statement', 'case-study', 'careers', 'partnering', 'privacy-policy', 'terms-of-use', 'accessibility', 'contact'];
+    return validPages.includes(hash) ? hash : 'home';
+  };
+
+  const [currentPage, setCurrentPage] = useState(getInitialPage);
   const [scrolled, setScrolled] = useState(false);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    window.history.replaceState({ page: currentPage }, '', window.location.hash || '#home');
+
+    const handlePopState = (event) => {
+      if (event.state && event.state.page) {
+        setCurrentPage(event.state.page);
+      } else {
+        const hash = window.location.hash.replace('#', '');
+        const validPages = ['home', 'enterprise-it', 'cybersecurity', 'devsecops', 'data-analytics', 'capability-statement', 'case-study', 'careers', 'partnering', 'privacy-policy', 'terms-of-use', 'accessibility', 'contact'];
+        setCurrentPage(validPages.includes(hash) ? hash : 'home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // SEO Management Hook - Dynamically updates Meta Tags based on the current page route
   useEffect(() => {
@@ -191,7 +217,10 @@ export default function App() {
 
   const handleNavClick = (e, page, hashId) => {
     e.preventDefault();
-    if (currentPage !== page) setCurrentPage(page);
+    if (currentPage !== page) {
+      setCurrentPage(page);
+      window.history.pushState({ page }, '', `#${page}`);
+    }
     if (hashId) {
       setTimeout(() => {
         const el = document.getElementById(hashId);
@@ -204,7 +233,10 @@ export default function App() {
   };
 
   const navigateTo = (page) => {
-    setCurrentPage(page);
+    if (currentPage !== page) {
+      setCurrentPage(page);
+      window.history.pushState({ page }, '', `#${page}`);
+    }
     window.scrollTo(0, 0);
   };
 
