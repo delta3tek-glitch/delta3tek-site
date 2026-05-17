@@ -400,7 +400,7 @@ export default function App() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
                 <FadeInView delay={0}>
                   <div className="p-4">
-                    <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">10<span className="text-[#b48c5a]">+</span></div>
+                    <div className="text-4xl md:text-5xl font-extrabold text-[#1e3a8a] mb-2 tracking-tighter">25<span className="text-[#b48c5a]">+</span></div>
                     <div className="text-sm font-bold text-slate-500 uppercase tracking-widest">Years Experience</div>
                   </div>
                 </FadeInView>
@@ -704,7 +704,7 @@ export default function App() {
                     <div className="bg-amber-50 text-[#b48c5a] p-5 rounded-2xl mb-6">
                       <Award size={36} />
                     </div>
-                    <span className="text-slate-900 font-extrabold text-xl mb-2">10+ Years Experience</span>
+                    <span className="text-slate-900 font-extrabold text-xl mb-2">25+ Years Experience</span>
                     <span className="text-slate-500 text-sm font-medium">Deep federal IT domain knowledge</span>
                   </div>
                 </FadeInView>
@@ -817,8 +817,7 @@ export default function App() {
           </div>
         </div>
       </footer>
-      <Analytics />
-
+<Analytics />
     </div>
   );
 }
